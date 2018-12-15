@@ -9,8 +9,8 @@ import java.util.List;
 
 public class StrokeShape extends Shape {
 
-  private  List<Point> points;
-  private  Color color;
+  private List<Point> points;
+  private Color color;
 
   public StrokeShape(Color color) {
     super(color);
@@ -22,9 +22,11 @@ public class StrokeShape extends Shape {
   public Point getPoint1() {
     return null;
   }
-  public String getName(){
+
+  public String getName() {
     return "StrokeShape";
   }
+
   @Override
   public Point getPoint2() {
     return null;
@@ -40,10 +42,12 @@ public class StrokeShape extends Shape {
     int lastPos = points.size() - 1;
     return points.get(lastPos);
   }
-  public ArrayList<Point> getPoints(){
+
+  public ArrayList<Point> getPoints() {
 
     return (ArrayList<Point>) points;
   }
+
   @Override
   public void draw(Graphics g) {
     if (color != null) {

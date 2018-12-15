@@ -23,7 +23,8 @@ public class OvalShape extends TwoEndsShape {
     int h = Math.abs(point1.y - point2.y) + 1;
     g.drawOval(x, y, w, h);
   }
-  public String getName(){
+
+  public String getName() {
     return "Oval";
   }
 

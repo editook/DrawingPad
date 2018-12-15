@@ -4,18 +4,15 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.List;
-import shapes.RectangleShape;
 import shapes.Shape;
 import shapes.StrokeShape;
-import shapes.TwoEndsShape;
-import views.canvas.toolkit.ScribbleTool;
 
-public class Stroke extends Rebuild{
+public class Stroke extends Rebuild {
 
   private List<Point> points;
   private Color color;
 
-  public Stroke(Color color,List<Point> points){
+  public Stroke(Color color, List<Point> points) {
     this.color = color;
     this.points = points;
   }

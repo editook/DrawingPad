@@ -1,13 +1,7 @@
 package datos.modelserializer;
 
-import datos.model.Oval;
-import datos.model.Rebuild;
 import datos.model.Share;
-import java.awt.Color;
-import java.awt.Point;
 import java.io.Serializable;
-import shapes.Drawable;
-import shapes.Shape;
 
 public class ModelShape implements Comparable<ModelShape>, Serializable {
 

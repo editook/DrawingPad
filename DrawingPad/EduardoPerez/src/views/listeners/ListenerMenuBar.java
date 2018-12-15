@@ -16,6 +16,7 @@ public class ListenerMenuBar implements ActionListener {
   private String currentFilename;
   private DrawingPad drawingPad;
   private MessageDialog messageDialog;
+
   public ListenerMenuBar(DrawingPad drawingPad, DrawingCanvas canvas, String currentFilename) {
     this.canvas = canvas;
     this.drawingPad = drawingPad;

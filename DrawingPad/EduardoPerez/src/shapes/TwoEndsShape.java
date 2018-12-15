@@ -1,10 +1,9 @@
 package shapes;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 
-public abstract class TwoEndsShape extends Shape implements Cloneable{
+public abstract class TwoEndsShape extends Shape implements Cloneable {
 
   private int x1;
   private int y1;
@@ -26,10 +25,12 @@ public abstract class TwoEndsShape extends Shape implements Cloneable{
     this.x2 = x2;
     this.y2 = y2;
   }
-  public Point getPoint1(){
-    return new Point(x1,y1);
+
+  public Point getPoint1() {
+    return new Point(x1, y1);
   }
-  public Point getPoint2(){
-    return new Point(x2,y2);
+
+  public Point getPoint2() {
+    return new Point(x2, y2);
   }
 }

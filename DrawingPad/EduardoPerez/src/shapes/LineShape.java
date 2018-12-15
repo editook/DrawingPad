@@ -18,7 +18,8 @@ public class LineShape extends TwoEndsShape {
     Point point2 = getPoint2();
     g.drawLine(point1.x, point1.y, point2.x, point2.y);
   }
-  public String getName(){
+
+  public String getName() {
     return "Line";
   }
 

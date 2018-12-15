@@ -8,7 +8,7 @@ import views.canvas.toolkit.ScribbleTool;
 import views.canvas.toolkit.Tool;
 
 public class DrawingCanvasListener
-        implements MouseListener, MouseMotionListener {
+    implements MouseListener, MouseMotionListener {
 
   private DrawingCanvas canvas;
   private Tool tool;

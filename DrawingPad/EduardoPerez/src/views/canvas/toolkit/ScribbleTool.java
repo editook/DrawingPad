@@ -1,10 +1,8 @@
 package views.canvas.toolkit;
 
-import datos.model.Share;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import shapes.Drawable;
 import shapes.StrokeShape;
 import views.components.windows.frame.DrawingCanvas;
 

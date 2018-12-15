@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import org.omg.PortableServer.POA;
 
 public class RectangleShape extends TwoEndsShape {
 
@@ -23,9 +22,11 @@ public class RectangleShape extends TwoEndsShape {
     int h = Math.abs(point1.y - point2.y) + 1;
     g.drawRect(x, y, w, h);
   }
-  public String getName(){
+
+  public String getName() {
     return "Rectangle";
   }
+
   @Override
   public ArrayList<Point> getPoints() {
     return new ArrayList<Point>();

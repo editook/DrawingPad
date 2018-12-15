@@ -8,12 +8,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import javax.swing.JPanel;
 import shapes.Drawable;
@@ -35,12 +29,12 @@ public class DrawingCanvas extends JPanel {
     addMouseMotionListener((MouseMotionListener) listener);
   }
 
-  public void setCurrentColor(Color curColor) {
-    this.currentColor = curColor;
-  }
-
   public Color getCurrentColor() {
     return currentColor;
+  }
+
+  public void setCurrentColor(Color curColor) {
+    this.currentColor = curColor;
   }
 
   public void addShape(Drawable shape) {

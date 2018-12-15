@@ -20,11 +20,11 @@ public class ColorPanel extends JPanel {
   private Dimension dimension;
 
   private Color[][] colorGrid = {
-    {Color.white, Color.lightGray, Color.darkGray, Color.black},
-    {Color.gray, Color.blue, Color.cyan, Color.green},
-    {Color.yellow, Color.orange, Color.pink, Color.red},
-    {Color.magenta, new Color(230, 230, 250), new Color(0, 0, 128),
-      new Color(64, 224, 208)}};
+      {Color.white, Color.lightGray, Color.darkGray, Color.black},
+      {Color.gray, Color.blue, Color.cyan, Color.green},
+      {Color.yellow, Color.orange, Color.pink, Color.red},
+      {Color.magenta, new Color(230, 230, 250), new Color(0, 0, 128),
+          new Color(64, 224, 208)}};
 
   public ColorPanel(int cellWidth, int cellHeight, int xpad, int ypad) {
     if (cellWidth < 5) {
@@ -46,7 +46,7 @@ public class ColorPanel extends JPanel {
     rowCount = colorGrid.length;
     columnCount = colorGrid[0].length;
     dimension = new Dimension((cellWidth + xpad) * columnCount + xpad,
-            (cellHeight + ypad) * (rowCount + 1) + ypad);
+        (cellHeight + ypad) * (rowCount + 1) + ypad);
     addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent event) {
@@ -54,7 +54,7 @@ public class ColorPanel extends JPanel {
         int i = (p.y / (ColorPanel.this.cellHeight + ColorPanel.this.ypad));
         int j = (p.x / (ColorPanel.this.cellWidth + ColorPanel.this.xpad));
         if (i < rowCount
-                && j < columnCount) {
+            && j < columnCount) {
           color = colorGrid[i][j];
           repaint();
         }
@@ -62,12 +62,12 @@ public class ColorPanel extends JPanel {
     });
   }
 
-  public void setColor(Color color) {
-    this.color = color;
-  }
-
   public Color getColor() {
     return color;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
   }
 
   @Override

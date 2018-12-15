@@ -27,12 +27,14 @@ import views.menus.MenuBar;
 import views.menus.StaticMenu;
 
 public class DrawingPad extends JFrame {
+
   private static final int WIDTH = 600;
   private static final int HEIGHT = 400;
   private DrawingCanvas canvas;
   private String currentFileName;
   private ToolKit toolkit;
   private JMenuBar menuBar;
+
   public DrawingPad(String title) {
     super(title);
     iniComponents();
@@ -43,7 +45,8 @@ public class DrawingPad extends JFrame {
     WindowsClose windowsClose = new WindowsClose(this);
     addWindowListener(windowsClose);
   }
-  public void exit(){
+
+  public void exit() {
     AlertDialog alert;
     boolean mode = canvas.stateShapes();
     if (mode) {
@@ -83,6 +86,7 @@ public class DrawingPad extends JFrame {
     setJMenuBar(menuBar);
     getContentPane().add(canvas, BorderLayout.CENTER);
   }
+
   private JMenuBar createMenuBar() {
     MenuBar menuBar = new MenuBar(this, canvas, currentFileName);
     menuBar.addMenu(StaticMenu.FILE);
@@ -99,12 +103,14 @@ public class DrawingPad extends JFrame {
     menuBar.addMenuItem(StaticMenu.HELP, StaticMenu.ABOUT);
     return menuBar;
   }
+
   private void iniComponents() {
     setLayout(new BorderLayout());
     setResizable(false);
     setSize(WIDTH, HEIGHT);
     setLocation(getDimension());
   }
+
   private Point getDimension() {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     return new Point(screenSize.width / 2 - WIDTH / 2,
@@ -124,12 +130,14 @@ public class DrawingPad extends JFrame {
     JMenu menuItemTool = createToolMenu(toolListener);
     menuBar.add(menuItemTool, 1); // insert at index position 1
   }
+
   private void actionToolListener(String nameTool) {
     if (nameTool != null) {
       Tool tool = toolkit.setSelectedTool(nameTool);
       canvas.setTool(tool);
     }
   }
+
   private ToolKit createToolkit() {
     toolkit = new ToolKit();
     toolkit.addTool(new ScribbleTool(canvas, "Scribble"));

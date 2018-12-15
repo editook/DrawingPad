@@ -10,28 +10,28 @@ import shapes.TwoEndsShape;
 import views.components.windows.frame.DrawingCanvas;
 
 public class TwoEndsTool implements Tool {
-  
+
+  private final DrawingCanvas canvas;
+  private final String name;
   private int xStart;
   private int yStart;
   private int xEnd;
   private int yEnd;
   private Color color;
-  private final DrawingCanvas canvas;
-  private final String name;
   private TwoEndsShape shape;
-  
+
   public TwoEndsTool(DrawingCanvas canvas, String name, TwoEndsShape shape) {
     this.canvas = canvas;
     this.name = name;
     this.shape = shape;
     color = canvas.getCurrentColor();
   }
-  
+
   @Override
   public String getName() {
     return name;
   }
-  
+
   @Override
   public void startShape(Point point) {
     xStart = point.x;
@@ -41,12 +41,12 @@ public class TwoEndsTool implements Tool {
     color = canvas.getCurrentColor();
     Graphics g = canvas.getGraphics();
     g.setXORMode(canvas.getBackground());
-    
+
     shape.setColor(color);
     shape.setEnds(xStart, yStart, xEnd, yEnd);
     shape.draw(g);
   }
-  
+
   @Override
   public void addPointToShape(Point point) {
     Graphics g = canvas.getGraphics();
@@ -58,7 +58,7 @@ public class TwoEndsTool implements Tool {
     xEnd = point.x;
     yEnd = point.y;
   }
-  
+
   @Override
   public void endShape(Point point) {
     shape.setEnds(xStart, yStart, point.x, point.y);
@@ -77,12 +77,12 @@ public class TwoEndsTool implements Tool {
     }
 
     if (newShape != null) {
-     newShape.setEnds(xStart, yStart, point.x, point.y);
-     canvas.addShape(newShape);
+      newShape.setEnds(xStart, yStart, point.x, point.y);
+      canvas.addShape(newShape);
     }
     Graphics g = canvas.getGraphics();
     g.setPaintMode();
     canvas.repaint();
   }
-  
+
 }

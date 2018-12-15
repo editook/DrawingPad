@@ -6,7 +6,7 @@ import views.canvas.toolkit.Tool;
 
 public class ToolKit {
 
-  private  List<Tool> tools = new ArrayList<>(16);
+  private List<Tool> tools = new ArrayList<>(16);
   private Tool selectedTool = null;
 
   public ToolKit() {
@@ -15,7 +15,6 @@ public class ToolKit {
   /**
    * Add a new tool to the tool kit. Return the index of the new tool.
    *
-   * @param tool
    * @return number
    */
   public int addTool(Tool tool) {
@@ -32,7 +31,7 @@ public class ToolKit {
 
   public Tool getTool(int i) {
     if (i >= 0
-            && i < tools.size()) {
+        && i < tools.size()) {
       return (Tool) tools.get(i);
     }
     return null;
@@ -65,12 +64,12 @@ public class ToolKit {
     return tool;
   }
 
-  public void setSelectedTool(Tool tool) {
-    selectedTool = tool;
-  }
-
   public Tool getSelectedTool() {
     return selectedTool;
+  }
+
+  public void setSelectedTool(Tool tool) {
+    selectedTool = tool;
   }
 
 }

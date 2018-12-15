@@ -61,7 +61,7 @@ public class ColorDialog extends JDialog implements ActionListener {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     Dimension dialogSize = getSize();
     setLocation(screenSize.width / 2 - dialogSize.width / 2,
-            screenSize.height / 2 - dialogSize.height / 2);
+        screenSize.height / 2 - dialogSize.height / 2);
     setVisible(true);
     if (result != null) {
       color = result;
@@ -76,8 +76,8 @@ public class ColorDialog extends JDialog implements ActionListener {
       result = colorPanel.getColor();
     } else if (source == moreColorButton) {
       Color selectedColor = chooser.showDialog(ColorDialog.this,
-              "Choose color",
-              color);
+          "Choose color",
+          color);
       if (selectedColor != null) {
         colorPanel.setColor(selectedColor);
         colorPanel.repaint();
@@ -86,7 +86,6 @@ public class ColorDialog extends JDialog implements ActionListener {
     }
     setVisible(false);
   }
-
 
 
 }
