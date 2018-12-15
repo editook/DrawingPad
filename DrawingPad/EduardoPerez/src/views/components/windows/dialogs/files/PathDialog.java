@@ -2,12 +2,12 @@ package views.components.windows.dialogs.files;
 
 import views.components.windows.frame.DrawingPad;
 
-public class MessageAlert implements MessageDialog {
+public class PathDialog implements PathDialogI {
 
   private static final String SAVE_AS = "Save As";
   private FileChooser fileChooser;
 
-  public MessageAlert(DrawingPad drawingPad) {
+  public PathDialog(DrawingPad drawingPad) {
     fileChooser = new FileChooser(drawingPad);
   }
 

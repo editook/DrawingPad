@@ -1,4 +1,4 @@
-package views.listeners;
+package views.components.windows.dialogs.colors;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import views.components.windows.panels.ColorPanel;
 
 public class ColorDialog extends JDialog implements ActionListener {
 

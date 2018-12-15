@@ -9,22 +9,23 @@ import datos.model.Stroke;
 import datos.modelserializer.ListModelShape;
 import datos.modelserializer.ModelShape;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import shapes.Shape;
 
 public class ListShape {
 
   private static List<Shape> shapes;
-  private boolean changesState;
 
   public ListShape() {
     shapes = new ArrayList<Shape>();
-    changesState = false;
   }
 
   public List<ModelShape> updateShapesList() {
-    List<ModelShape> modelShapeList = new ArrayList<>();
+    List<ModelShape> modelShapeList = new ArrayList<ModelShape>();
     for (Shape shape : shapes) {
       modelShapeList.add(new ModelShape(creatShare(shape)));
     }
@@ -48,10 +49,16 @@ public class ListShape {
     }
     return share;
   }
-
+  private Shape last(){
+    Shape Copyshape=null;
+    for (Shape shape : shapes) {
+      Copyshape =shape;
+    }
+    return Copyshape;
+  }
   public void add(Shape shape) {
     shapes.add(shape);
-    changesState = true;
+    System.out.println(shapes.size());
   }
 
   public Iterator<Shape> iterator() {
@@ -63,7 +70,7 @@ public class ListShape {
   }
 
   public boolean isEmpty() {
-    return changesState;
+    return shapes.isEmpty();
   }
 
   public void updateList(String filename) {
@@ -73,6 +80,12 @@ public class ListShape {
     for (ModelShape modelShape : shareList) {
       Share share = modelShape.getShare();
       add(share.getShape());
+    }
+  }
+
+  public void removeLatest() {
+    if(shapes.size()-1>=0){
+      shapes.remove( shapes.size()-1);
     }
   }
 }

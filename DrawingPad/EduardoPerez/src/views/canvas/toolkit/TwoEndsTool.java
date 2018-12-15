@@ -7,7 +7,7 @@ import shapes.LineShape;
 import shapes.OvalShape;
 import shapes.RectangleShape;
 import shapes.TwoEndsShape;
-import views.components.windows.frame.DrawingCanvas;
+import views.components.windows.panels.DrawingCanvas;
 
 public class TwoEndsTool implements Tool {
 
@@ -63,7 +63,7 @@ public class TwoEndsTool implements Tool {
   public void endShape(Point point) {
     shape.setEnds(xStart, yStart, point.x, point.y);
 
-    canvas.addShape(shape);
+    //canvas.addShape(shape);
     TwoEndsShape newShape = null;
     switch (name) {
       case "Line":

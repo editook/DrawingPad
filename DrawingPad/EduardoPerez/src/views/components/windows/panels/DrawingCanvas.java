@@ -1,4 +1,4 @@
-package views.components.windows.frame;
+package views.components.windows.panels;
 
 import datos.Acceso;
 import datos.modelserializer.ListModelShape;
@@ -6,13 +6,13 @@ import datos.modelserializer.ModeloSerializable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 import javax.swing.JPanel;
 import shapes.Drawable;
 import shapes.Shape;
 import views.canvas.toolkit.Tool;
+import views.components.windows.frame.ListShape;
+import views.listeners.DrawingCanvasListener;
 
 public class DrawingCanvas extends JPanel {
 
@@ -25,8 +25,8 @@ public class DrawingCanvas extends JPanel {
   public DrawingCanvas() {
     shapes = new ListShape();
     listener = makeCanvasListener();
-    addMouseListener((MouseListener) listener);
-    addMouseMotionListener((MouseMotionListener) listener);
+    //addMouseListener((MouseListener) listener);
+    //addMouseMotionListener((MouseMotionListener) listener);
   }
 
   public Color getCurrentColor() {
@@ -99,5 +99,10 @@ public class DrawingCanvas extends JPanel {
 
   public boolean stateShapes() {
     return !shapes.isEmpty();
+  }
+
+  public void UndoChange() {
+    shapes.removeLatest();
+    repaint();
   }
 }

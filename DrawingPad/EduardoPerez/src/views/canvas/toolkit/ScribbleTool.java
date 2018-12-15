@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import shapes.StrokeShape;
-import views.components.windows.frame.DrawingCanvas;
+import views.components.windows.panels.DrawingCanvas;
 
 public class ScribbleTool implements Tool {
 

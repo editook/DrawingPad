@@ -1,4 +1,4 @@
-package views.listeners;
+package views.components.windows.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;

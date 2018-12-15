@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,6 +24,8 @@ import views.canvas.toolkit.TwoEndsTool;
 import views.components.windows.dialogs.closewindow.AlertDialog;
 import views.components.windows.dialogs.closewindow.AlertDialogExit;
 import views.components.windows.dialogs.closewindow.AlertDialogSave;
+import views.components.windows.panels.DrawingCanvas;
+import views.listeners.ListenerUndo;
 import views.menus.MenuBar;
 import views.menus.StaticMenu;
 
@@ -41,7 +44,7 @@ public class DrawingPad extends JFrame {
     canvas = makeCanvas();
     initMenus();
     initTools();
-
+    currentFileName = null;
     WindowsClose windowsClose = new WindowsClose(this);
     addWindowListener(windowsClose);
   }
@@ -63,7 +66,9 @@ public class DrawingPad extends JFrame {
     }
 
   }
-
+  public void UndoChange(){
+    canvas.UndoChange();
+  }
   private void exitDrawingPad(boolean status) {
     if (status) {
       canvas.saveFile(currentFileName);
@@ -97,10 +102,13 @@ public class DrawingPad extends JFrame {
     menuBar.addMenuItem(StaticMenu.FILE, StaticMenu.EXIT);
     menuBar.addMenu(StaticMenu.OPTION);
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
+    MouseListener actionListenerUndo = new ListenerUndo(this);
+    menuBar.addMenu("Undo",actionListenerUndo);
     // horizontal space
     menuBar.addEspace();
     menuBar.addMenu(StaticMenu.HELP);
     menuBar.addMenuItem(StaticMenu.HELP, StaticMenu.ABOUT);
+
     return menuBar;
   }
 
@@ -123,7 +131,7 @@ public class DrawingPad extends JFrame {
 
   private void initTools() {
     toolkit = createToolkit();
-    canvas.setTool(toolkit.getTool(0));
+    canvas.setTool(toolkit.getFirst());
     ActionListener toolListener = event -> actionToolListener(event.getActionCommand());
     JComponent toolbar = createToolBar(toolListener);
     getContentPane().add(toolbar, BorderLayout.WEST);
@@ -149,39 +157,22 @@ public class DrawingPad extends JFrame {
 
   private JComponent createToolBar(ActionListener toolListener) {
     JPanel toolbar = new JPanel(new GridLayout(0, 1));
-    int n = toolkit.getToolCount();
-    for (int i = 0; i < n; i++) {
-      Tool tool = toolkit.getTool(i);
-      if (tool != null) {
-        JButton button = new JButton(tool.getName());
-        button.addActionListener(toolListener);
-        toolbar.add(button);
-      }
+    for (Tool tool: toolkit.getTools()) {
+      JButton button = new JButton(tool.getName());
+      button.addActionListener(toolListener);
+      toolbar.add(button);
     }
     return toolbar;
   }
 
   private JMenu createToolMenu(ActionListener toolListener) {
     JMenu menu = new JMenu("Tools");
-    int n = toolkit.getToolCount();
-    for (int i = 0; i < n; i++) {
-      Tool tool = toolkit.getTool(i);
-      if (tool != null) {
+    for (Tool tool: toolkit.getTools()) {
         JMenuItem menuItem = new JMenuItem(tool.getName());
         menuItem.addActionListener(toolListener);
         menu.add(menuItem);
-      }
     }
     return menu;
   }
-
-  public String getCurrentFileName() {
-    return currentFileName;
-  }
-
-  public void setCurrentFileName(String fileName) {
-    currentFileName = fileName;
-  }
-
 
 }

@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import views.components.windows.dialogs.files.MessageAlert;
-import views.components.windows.dialogs.files.MessageDialog;
-import views.components.windows.frame.DrawingCanvas;
+import views.components.windows.dialogs.colors.ColorDialog;
+import views.components.windows.dialogs.files.PathDialog;
+import views.components.windows.dialogs.files.PathDialogI;
+import views.components.windows.panels.DrawingCanvas;
 import views.components.windows.frame.DrawingPad;
 import views.menus.StaticMenu;
 
@@ -15,13 +16,13 @@ public class ListenerMenuBar implements ActionListener {
   private DrawingCanvas canvas;
   private String currentFilename;
   private DrawingPad drawingPad;
-  private MessageDialog messageDialog;
+  private PathDialogI messageDialog;
 
   public ListenerMenuBar(DrawingPad drawingPad, DrawingCanvas canvas, String currentFilename) {
     this.canvas = canvas;
     this.drawingPad = drawingPad;
     this.currentFilename = currentFilename;
-    messageDialog = new MessageAlert(drawingPad);
+    messageDialog = new PathDialog(drawingPad);
   }
 
   @Override

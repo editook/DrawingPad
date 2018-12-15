@@ -1,6 +1,6 @@
 package views.components.windows.dialogs.files;
 
-public interface MessageDialog {
+public interface PathDialogI {
 
   String openFileListener(String filename);
 

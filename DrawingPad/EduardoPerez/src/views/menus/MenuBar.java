@@ -1,10 +1,12 @@
 package views.menus;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import views.components.windows.frame.DrawingCanvas;
+import views.components.windows.panels.DrawingCanvas;
 import views.components.windows.frame.DrawingPad;
 import views.listeners.ListenerMenuBar;
 
@@ -51,6 +53,14 @@ public class MenuBar extends JMenuBar {
 
   public void addEspace() {
     add(Box.createHorizontalGlue());
+    index++;
+  }
+
+  public void addMenu(String name, MouseListener actionListenerUndo) {
+    JMenu menu = new JMenu(name);
+    menu.setActionCommand(name);
+    menu.addMouseListener(actionListenerUndo);
+    add(menu);
     index++;
   }
 }
