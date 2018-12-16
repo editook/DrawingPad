@@ -1,10 +1,11 @@
 package shapes;
 
+import datos.modelserializer.ModelShape;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public abstract class Shape implements Drawable {
+public abstract class Shape implements  Drawable {
 
   private Color color;
 

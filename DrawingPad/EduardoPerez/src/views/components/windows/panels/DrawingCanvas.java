@@ -19,7 +19,7 @@ public class DrawingCanvas extends JPanel {
   private ListShape shapes;
 
   private Color currentColor = Color.black;
-
+  private boolean stateMouse;
   private DrawingCanvasListener listener;
 
   public DrawingCanvas() {
@@ -39,12 +39,17 @@ public class DrawingCanvas extends JPanel {
 
   public void addShape(Drawable shape) {
     if (shape != null) {
-
       shapes.add((Shape) shape);
     }
-
   }
-
+  public ListShape getShapes(){
+    return shapes;
+  }
+  public void setColorSelected(Shape shape){
+    if(shape!=null){
+      shapes.setColorSelected(shape);
+    }
+  }
   public void setTool(Tool tool) {
     listener.setTool(tool);
   }
@@ -65,7 +70,6 @@ public class DrawingCanvas extends JPanel {
         }
       }
     }
-    System.out.println(shapes.isEmpty());
   }
 
   public void newFile() {
@@ -88,7 +92,12 @@ public class DrawingCanvas extends JPanel {
     Acceso.setOutputStream(modeloSerializable, currentFilename);
 
   }
-
+  public void setChangeMouseEdition(){
+    stateMouse = ! stateMouse;
+  }
+  public boolean stateMouseEdition(){
+    return stateMouse;
+  }
   private DrawingCanvasListener makeCanvasListener() {
     return new DrawingCanvasListener(this);
   }

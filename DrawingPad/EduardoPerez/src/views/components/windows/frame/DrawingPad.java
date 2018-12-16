@@ -66,6 +66,7 @@ public class DrawingPad extends JFrame {
     }
 
   }
+
   public void UndoChange(){
     canvas.UndoChange();
   }
@@ -104,6 +105,9 @@ public class DrawingPad extends JFrame {
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
     MouseListener actionListenerUndo = new ListenerUndo(this);
     menuBar.addMenu("Undo",actionListenerUndo);
+    menuBar.addMenu("Mode");
+    menuBar.addMenuItem("Mode", "Edition");
+    menuBar.addMenuItem("Mode", "Selection");
     // horizontal space
     menuBar.addEspace();
     menuBar.addMenu(StaticMenu.HELP);

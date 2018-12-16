@@ -13,8 +13,8 @@ public class DrawingCanvasListener{
   public DrawingCanvasListener(DrawingCanvas canvas) {
     this.canvas = canvas;
     tool = new ScribbleTool(canvas, "Scribble");
-    drawingEventMouseListener = new DrawingEventMouseListener(tool);
-    drawingEventMouseMotion = new DrawingEventMouseMotion(tool);
+    drawingEventMouseListener = new DrawingEventMouseListener(canvas,tool);
+    drawingEventMouseMotion = new DrawingEventMouseMotion(canvas,tool);
     canvas.addMouseListener(drawingEventMouseListener);
     canvas.addMouseMotionListener(drawingEventMouseMotion);
   }

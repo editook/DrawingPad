@@ -32,4 +32,5 @@ public class OvalShape extends TwoEndsShape {
   public ArrayList<Point> getPoints() {
     return new ArrayList<Point>();
   }
+
 }

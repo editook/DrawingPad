@@ -8,20 +8,26 @@ import datos.model.Share;
 import datos.model.Stroke;
 import datos.modelserializer.ListModelShape;
 import datos.modelserializer.ModelShape;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import shapes.RectangleShape;
 import shapes.Shape;
 
 public class ListShape {
 
   private static List<Shape> shapes;
-
+  private Color selectedColor;
   public ListShape() {
     shapes = new ArrayList<Shape>();
+  }
+
+  public List<Shape> getShapes() {
+    return shapes;
   }
 
   public List<ModelShape> updateShapesList() {
@@ -49,16 +55,9 @@ public class ListShape {
     }
     return share;
   }
-  private Shape last(){
-    Shape Copyshape=null;
-    for (Shape shape : shapes) {
-      Copyshape =shape;
-    }
-    return Copyshape;
-  }
+
   public void add(Shape shape) {
     shapes.add(shape);
-    System.out.println(shapes.size());
   }
 
   public Iterator<Shape> iterator() {
@@ -86,6 +85,25 @@ public class ListShape {
   public void removeLatest() {
     if(shapes.size()-1>=0){
       shapes.remove( shapes.size()-1);
+    }
+  }
+
+  public void setColorSelected(Shape shape) {
+
+    for (int i =0;i<shapes.size();i++) {
+      Shape shapeItem = shapes.get(i);
+
+      if(shape!=null){
+        if (shapeItem.getName().equals("Rectangle")){
+          Color color = new Color(0,123,43);
+          shapeItem.setColor(color);
+          System.out.println("colisiono");
+
+        }
+      }
+
+      shapes.set(i,shapeItem);
+      break;
     }
   }
 }
