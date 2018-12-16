@@ -11,11 +11,11 @@ public class StrokeShape extends Shape {
 
   private List<Point> points;
   private Color color;
-
+  private static final String STROKE_SHAPE = "StrokeShape";
   public StrokeShape(Color color) {
     super(color);
     this.color = color;
-    points = new ArrayList<>();
+    points = new ArrayList<Point>();
   }
 
   @Override
@@ -24,7 +24,7 @@ public class StrokeShape extends Shape {
   }
 
   public String getName() {
-    return "StrokeShape";
+    return STROKE_SHAPE;
   }
 
   @Override

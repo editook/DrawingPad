@@ -10,9 +10,13 @@ public class StaticMenu {
   public static final String EXIT = "Exit";
   public static final String COLOR = "Color";
   public static final String ABOUT = "About";
+  public static final String EDITION = "Edition";
+  public static final String SELECTION = "Selection";
   /* names menus of top */
   public static final String FILE = "File";
   public static final String OPTION = "Option";
   public static final String HELP = "Help";
+  public static final String MODE = "Mode";
+  public static final String UNDO = "Undo";
 
 }

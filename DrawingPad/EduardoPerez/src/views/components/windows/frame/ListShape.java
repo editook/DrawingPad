@@ -1,109 +1,89 @@
 package views.components.windows.frame;
 
-import datos.Acceso;
+import datos.Connection;
 import datos.model.Line;
 import datos.model.Oval;
 import datos.model.Rectangle;
-import datos.model.Share;
+import datos.model.ShapeBuild;
 import datos.model.Stroke;
 import datos.modelserializer.ListModelShape;
 import datos.modelserializer.ModelShape;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import shapes.RectangleShape;
 import shapes.Shape;
 
 public class ListShape {
 
-  private static List<Shape> shapes;
-  private Color selectedColor;
+  private static List<Shape> shapeList;
   public ListShape() {
-    shapes = new ArrayList<Shape>();
+    shapeList = new ArrayList<Shape>();
   }
 
   public List<Shape> getShapes() {
-    return shapes;
+    return shapeList;
   }
 
   public List<ModelShape> updateShapesList() {
     List<ModelShape> modelShapeList = new ArrayList<ModelShape>();
-    for (Shape shape : shapes) {
-      modelShapeList.add(new ModelShape(creatShare(shape)));
+    for (Shape shape : shapeList) {
+      modelShapeList.add(new ModelShape(creatShape(shape)));
     }
     return modelShapeList;
   }
 
-  private Share creatShare(Shape shape) {
-    Share share = null;
+  private ShapeBuild creatShape(Shape shape) {
+    ShapeBuild shapeBuild = null;
     switch (shape.getName()) {
       case "Line":
-        share = new Line(shape.getColor(), shape.getPoint1(), shape.getPoint2());
+        shapeBuild = new Line(shape.getColor(), shape.getPoint1(), shape.getPoint2());
         break;
       case "Rectangle":
-        share = new Rectangle(shape.getColor(), shape.getPoint1(), shape.getPoint2());
+        RectangleShape rectangleShape = (RectangleShape) shape;
+        shapeBuild = new Rectangle(rectangleShape.getColor(), rectangleShape.getPoint1(),
+            rectangleShape.getPoint2());
+        ((Rectangle) shapeBuild).setContentTitle(rectangleShape.getTextShape());
         break;
       case "Oval":
-        share = new Oval(shape.getColor(), shape.getPoint1(), shape.getPoint2());
+        shapeBuild = new Oval(shape.getColor(), shape.getPoint1(), shape.getPoint2());
         break;
       case "StrokeShape":
-        share = new Stroke(shape.getColor(), shape.getPoints());
+        shapeBuild = new Stroke(shape.getColor(), shape.getPoints());
     }
-    return share;
+    return shapeBuild;
   }
 
   public void add(Shape shape) {
-    shapes.add(shape);
+    shapeList.add(shape);
   }
 
   public Iterator<Shape> iterator() {
-    return shapes.iterator();
+    return shapeList.iterator();
   }
 
   public void clear() {
-    shapes.clear();
+    shapeList.clear();
   }
 
   public boolean isEmpty() {
-    return shapes.isEmpty();
+    return shapeList.isEmpty();
   }
 
   public void updateList(String filename) {
-    ListModelShape listModelShape = Acceso.getInputStream(filename);
+    ListModelShape listModelShape = Connection.openFileSerialized(filename);
     List<ModelShape> shareList = listModelShape.getModelShape();
 
     for (ModelShape modelShape : shareList) {
-      Share share = modelShape.getShare();
-      add(share.getShape());
+      ShapeBuild shapeBuild = modelShape.getShapeBuild();
+      add(shapeBuild.getShape());
     }
   }
 
   public void removeLatest() {
-    if(shapes.size()-1>=0){
-      shapes.remove( shapes.size()-1);
-    }
-  }
-
-  public void setColorSelected(Shape shape) {
-
-    for (int i =0;i<shapes.size();i++) {
-      Shape shapeItem = shapes.get(i);
-
-      if(shape!=null){
-        if (shapeItem.getName().equals("Rectangle")){
-          Color color = new Color(0,123,43);
-          shapeItem.setColor(color);
-          System.out.println("colisiono");
-
-        }
-      }
-
-      shapes.set(i,shapeItem);
-      break;
+    if(shapeList.size()-1>=0){
+      shapeList.remove( shapeList.size()-1);
     }
   }
 }

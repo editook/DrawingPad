@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
+import org.omg.PortableServer.POA;
 import shapes.RectangleShape;
 import shapes.Shape;
 import views.canvas.toolkit.Tool;
@@ -75,11 +77,19 @@ public class DrawingEventMouseListener implements MouseListener {
     if (!canvas.stateMouseEdition()){
       int s = mouseEvent.getButton();
       if(s==1){
-        Point point = mouseEvent.getPoint();
-        tool.endShape(point);
+        if(tool.getName().equals("Rectangle")){
+          Point point = mouseEvent.getPoint();
+          tool.startShape(point);
+          Point point1 = new Point(point.x+100,point.y+70);
+          tool.endShape(point1);
+        }
+        else{
+          Point point = mouseEvent.getPoint();
+          tool.endShape(point);
+        }
+
       }
     }
-
 
   }
 

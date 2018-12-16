@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class LineShape extends TwoEndsShape {
-
+  private static final String LINE = "Line";
   public LineShape(Color color) {
     super(color);
   }
@@ -20,7 +20,7 @@ public class LineShape extends TwoEndsShape {
   }
 
   public String getName() {
-    return "Line";
+    return LINE;
   }
 
   @Deprecated

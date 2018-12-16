@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Acceso {
+public class Connection {
 
-  public Acceso() {
+  public Connection() {
 
   }
 
-  public static ListModelShape getInputStream(String filename) {
+  public static ListModelShape openFileSerialized(String filename) {
     ListModelShape listModelShape = new ListModelShape();
     try {
       ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename));
@@ -29,7 +29,7 @@ public class Acceso {
     return listModelShape;
   }
 
-  public static void setOutputStream(ModeloSerializable listModelShape, String filename) {
+  public static void setFileSerialized(ModeloSerializable listModelShape, String filename) {
     ObjectOutputStream outputStream;
     try {
       outputStream = new ObjectOutputStream(new FileOutputStream(filename));

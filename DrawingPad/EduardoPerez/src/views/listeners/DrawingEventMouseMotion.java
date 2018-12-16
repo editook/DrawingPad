@@ -30,7 +30,8 @@ public class DrawingEventMouseMotion implements MouseMotionListener {
   public void mouseDragged(MouseEvent mouseEvent) {
     if(!canvas.stateMouseEdition()){
       Point point = mouseEvent.getPoint();
-      tool.addPointToShape(point);
+      if (!tool.getName().equals("Rectangle"))
+        tool.addPointToShape(point);
     }
   }
   Rectangle rectangle = new Rectangle(0,0,5,5);

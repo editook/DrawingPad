@@ -104,10 +104,10 @@ public class DrawingPad extends JFrame {
     menuBar.addMenu(StaticMenu.OPTION);
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
     MouseListener actionListenerUndo = new ListenerUndo(this);
-    menuBar.addMenu("Undo",actionListenerUndo);
-    menuBar.addMenu("Mode");
-    menuBar.addMenuItem("Mode", "Edition");
-    menuBar.addMenuItem("Mode", "Selection");
+    menuBar.addMenu(StaticMenu.UNDO,actionListenerUndo);
+    menuBar.addMenu(StaticMenu.MODE);
+    menuBar.addMenuItem(StaticMenu.MODE, StaticMenu.EDITION);
+    menuBar.addMenuItem(StaticMenu.MODE, StaticMenu.SELECTION);
     // horizontal space
     menuBar.addEspace();
     menuBar.addMenu(StaticMenu.HELP);

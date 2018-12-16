@@ -1,6 +1,6 @@
 package views.components.windows.panels;
 
-import datos.Acceso;
+import datos.Connection;
 import datos.modelserializer.ListModelShape;
 import datos.modelserializer.ModeloSerializable;
 import java.awt.Color;
@@ -25,8 +25,6 @@ public class DrawingCanvas extends JPanel {
   public DrawingCanvas() {
     shapes = new ListShape();
     listener = makeCanvasListener();
-    //addMouseListener((MouseListener) listener);
-    //addMouseMotionListener((MouseMotionListener) listener);
   }
 
   public Color getCurrentColor() {
@@ -45,11 +43,7 @@ public class DrawingCanvas extends JPanel {
   public ListShape getShapes(){
     return shapes;
   }
-  public void setColorSelected(Shape shape){
-    if(shape!=null){
-      shapes.setColorSelected(shape);
-    }
-  }
+
   public void setTool(Tool tool) {
     listener.setTool(tool);
   }
@@ -89,11 +83,11 @@ public class DrawingCanvas extends JPanel {
 
     ModeloSerializable modeloSerializable = new ListModelShape();
     modeloSerializable.setModelShape(shapes.updateShapesList());
-    Acceso.setOutputStream(modeloSerializable, currentFilename);
+    Connection.setFileSerialized(modeloSerializable, currentFilename);
 
   }
-  public void setChangeMouseEdition(){
-    stateMouse = ! stateMouse;
+  public void setChangeMouseEdition(boolean stateMouse){
+    this.stateMouse = stateMouse;
   }
   public boolean stateMouseEdition(){
     return stateMouse;

@@ -1,26 +1,22 @@
 package datos.modelserializer;
 
-import datos.model.Share;
+import datos.model.ShapeBuild;
 import java.io.Serializable;
 
 public class ModelShape implements Comparable<ModelShape>, Serializable {
 
-  private Share share;
+  private ShapeBuild shapeBuild;
 
-  public ModelShape(Share share) {
-    this.share = share;
+  public ModelShape(ShapeBuild shapeBuild) {
+    this.shapeBuild = shapeBuild;
   }
-
 
   @Override
   public int compareTo(ModelShape modelShape) {
     return 0;
   }
 
-  public Share getShare() {
-    /*Share share = new Oval(Color.BLACK,new Point(1,1),new Point(3,3));
-    Drawable share1 = figure.getShape();
-    return (Share) share1;*/
-    return share;
+  public ShapeBuild getShapeBuild() {
+    return shapeBuild;
   }
 }
