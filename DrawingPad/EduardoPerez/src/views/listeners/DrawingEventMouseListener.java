@@ -10,9 +10,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import org.omg.PortableServer.POA;
+import shapes.LineShape;
 import shapes.RectangleShape;
 import shapes.Shape;
+import shapes.TwoEndsShape;
+import shapes.uml.ClassShape;
+import shapes.uml.RelationShip;
 import views.canvas.toolkit.Tool;
+import views.canvas.toolkit.TwoEndsTool;
 import views.components.windows.frame.ListShape;
 import views.components.windows.panels.DrawingCanvas;
 
@@ -20,6 +25,7 @@ public class DrawingEventMouseListener implements MouseListener {
 
   private Tool tool;
   private DrawingCanvas canvas;
+  private TwoEndsShape reacion;
   public DrawingEventMouseListener(DrawingCanvas canvas, Tool tool) {
     this.tool = tool;
     this.canvas = canvas;
@@ -31,31 +37,18 @@ public class DrawingEventMouseListener implements MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent mouseEvent) {
-    if(canvas.stateMouseEdition()){
+    int value = canvas.stateMouseEdition();
+    Point point = mouseEvent.getPoint();
+    if(value==1){//create class
 
-      ListShape listShape = canvas.getShapes();
-      Rectangle rectangle = new Rectangle(mouseEvent.getX(),mouseEvent.getY(),5,5);
-      for (Shape shape : listShape.getShapes()){
-        if(shape.getName().equals("Rectangle")){
-
-          Point point1 = shape.getPoint1();
-          Point point2 = shape.getPoint2();
-          int x = Math.abs(point1.x-point2.x);
-          int y = Math.abs(point1.y-point2.y);
-          Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
-          System.out.println(shape.getName());
-          if(rectangle.intersects(rectangle1)){
-            System.out.println("modo seleccion");
-            String name = JOptionPane.showInputDialog(canvas, "Name into the Class?");
-            //Graphics g = canvas.getGraphics();
-            RectangleShape rectangleShape = (RectangleShape) shape;
-            rectangleShape.setTextoShape(name);
-            canvas.repaint();
-            break;
-          }
-
-        }
-      }
+      ClassShape classShape = new ClassShape(canvas.getCurrentColor());
+      String name = JOptionPane.showInputDialog(canvas, "Name class name:");
+      classShape.setTitleClass(name);
+      Point point1 = new Point(point.x+100,point.y+70);
+      classShape.setPoint1(point);
+      classShape.setPoint2(point1);
+      canvas.addShape(classShape);
+      canvas.repaint();
 
     }
 
@@ -63,34 +56,44 @@ public class DrawingEventMouseListener implements MouseListener {
 
   @Override
   public void mousePressed(MouseEvent mouseEvent) {
-    if(!canvas.stateMouseEdition()){
-      int s = mouseEvent.getButton();
-      if(s==1){
-        Point point = mouseEvent.getPoint();
-        tool.startShape(point);
+    int value = canvas.stateMouseEdition();
+    Point point = mouseEvent.getPoint();
+    if(value ==0){//figure
+      tool.startShape(point);
+    }
+    else{
+      if(value ==2){//relationShip
+        //continue
+        reacion= new LineShape(canvas.getCurColor());
+        reacion.setPoint1(point);
       }
     }
   }
 
   @Override
   public void mouseReleased(MouseEvent mouseEvent) {
-    if (!canvas.stateMouseEdition()){
-      int s = mouseEvent.getButton();
-      if(s==1){
-        if(tool.getName().equals("Rectangle")){
-          Point point = mouseEvent.getPoint();
-          tool.startShape(point);
-          Point point1 = new Point(point.x+100,point.y+70);
-          tool.endShape(point1);
+    Point point = mouseEvent.getPoint();
+    int value = canvas.stateMouseEdition();
+    if(value==0){//figure
+      tool.endShape(point);
+    }
+    else{
+      if(value==3){//class edit name
+        if(canvas.isColisionClassShape(point)){
+          String name = JOptionPane.showInputDialog(canvas, "Rename class name:");
+          canvas.changeClassName(name,point);
+          canvas.repaint();
         }
-        else{
-          Point point = mouseEvent.getPoint();
-          tool.endShape(point);
+      }
+      else{
+        if(value ==2){
+          System.out.println(value);
+          reacion.setPoint2(point);
+          canvas.addRelationShape(reacion);
+          canvas.repaint();
         }
-
       }
     }
-
   }
 
   @Deprecated

@@ -23,6 +23,16 @@ public class StrokeShape extends Shape {
     return null;
   }
 
+  @Override
+  public void setPoint1(Point point) {
+
+  }
+
+  @Override
+  public void setPoint2(Point point) {
+
+  }
+
   public String getName() {
     return STROKE_SHAPE;
   }

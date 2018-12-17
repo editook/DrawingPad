@@ -11,7 +11,6 @@ public class LineShape extends TwoEndsShape {
   public LineShape(Color color) {
     super(color);
   }
-
   @Override
   public void draw(Graphics g) {
     Point point1 = getPoint1();

@@ -6,10 +6,13 @@ import datos.modelserializer.ModeloSerializable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Iterator;
 import javax.swing.JPanel;
+import org.omg.PortableServer.POA;
 import shapes.Drawable;
 import shapes.Shape;
+import shapes.TwoEndsShape;
 import views.canvas.toolkit.Tool;
 import views.components.windows.frame.ListShape;
 import views.listeners.DrawingCanvasListener;
@@ -19,12 +22,13 @@ public class DrawingCanvas extends JPanel {
   private ListShape shapes;
 
   private Color currentColor = Color.black;
-  private boolean stateMouse;
+  private int modeEition;
   private DrawingCanvasListener listener;
 
   public DrawingCanvas() {
     shapes = new ListShape();
     listener = makeCanvasListener();
+    modeEition = 0;
   }
 
   public Color getCurrentColor() {
@@ -86,11 +90,11 @@ public class DrawingCanvas extends JPanel {
     Connection.setFileSerialized(modeloSerializable, currentFilename);
 
   }
-  public void setChangeMouseEdition(boolean stateMouse){
-    this.stateMouse = stateMouse;
+  public void setChangeMouseEdition(int modeEition){
+    this.modeEition = modeEition;
   }
-  public boolean stateMouseEdition(){
-    return stateMouse;
+  public int stateMouseEdition(){
+    return modeEition;
   }
   private DrawingCanvasListener makeCanvasListener() {
     return new DrawingCanvasListener(this);
@@ -107,5 +111,19 @@ public class DrawingCanvas extends JPanel {
   public void UndoChange() {
     shapes.removeLatest();
     repaint();
+  }
+
+  public boolean isColisionClassShape(Point point) {
+    return shapes.isColisionClass(point);
+  }
+
+  public void changeClassName(String name, Point pointer) {
+    if(name!=null){
+      shapes.renameClassName(name,pointer);
+    }
+  }
+
+  public void addRelationShape(Shape relationShip) {
+    shapes.addRelationShapre(relationShip);
   }
 }

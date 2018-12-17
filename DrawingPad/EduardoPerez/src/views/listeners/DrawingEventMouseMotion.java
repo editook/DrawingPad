@@ -14,13 +14,17 @@ import views.components.windows.frame.ListShape;
 import views.components.windows.panels.DrawingCanvas;
 
 public class DrawingEventMouseMotion implements MouseMotionListener {
-  private Cursor cursorSelection = new Cursor(Cursor.HAND_CURSOR);
-  private Cursor cursorEdition = new Cursor(Cursor.DEFAULT_CURSOR);
+  private Cursor cursorSelection;
+  private Cursor cursorEdition;
   private Tool tool;
   private DrawingCanvas canvas;
+  private Rectangle rectangle;
   public DrawingEventMouseMotion(DrawingCanvas canvas, Tool tool){
     this.tool = tool;
     this.canvas = canvas;
+    cursorSelection = new Cursor(Cursor.HAND_CURSOR);
+    cursorEdition = new Cursor(Cursor.DEFAULT_CURSOR);
+    rectangle = new Rectangle(0,0,5,5);
   }
   public void setTool(Tool tool) {
     this.tool = tool;
@@ -28,35 +32,49 @@ public class DrawingEventMouseMotion implements MouseMotionListener {
 
   @Override
   public void mouseDragged(MouseEvent mouseEvent) {
-    if(!canvas.stateMouseEdition()){
-      Point point = mouseEvent.getPoint();
-      if (!tool.getName().equals("Rectangle"))
-        tool.addPointToShape(point);
+    int value = canvas.stateMouseEdition();
+    Point point = mouseEvent.getPoint();
+    if(value ==0){
+      tool.addPointToShape(point);
     }
   }
-  Rectangle rectangle = new Rectangle(0,0,5,5);
+
   @Override
   public void mouseMoved(MouseEvent mouseEvent) {
-    if(canvas.stateMouseEdition()){
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    if(canvas.stateMouseEdition()==1){//create class
+
       ListShape listShape = canvas.getShapes();
       rectangle.setLocation(mouseEvent.getPoint());
       for (Shape shape : listShape.getShapes()){
-        if(shape.getName().equals("Rectangle")){
+        if(shape.getName().equals("RectangleBuild")){
           Point point1 = shape.getPoint1();
           Point point2 = shape.getPoint2();
           int x = Math.abs(point1.x-point2.x);
           int y = Math.abs(point1.y-point2.y);
-          Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
+          RectangleBuild rectangle1 = new RectangleBuild(point1.x,point1.y,x,y);
           if(rectangle.intersects(rectangle1)){
             canvas.setCursor(cursorSelection);
           }
           else {
             canvas.setCursor(cursorEdition);
           }
-
         }
       }
-    }
 
+    }
+*/
   }
 }

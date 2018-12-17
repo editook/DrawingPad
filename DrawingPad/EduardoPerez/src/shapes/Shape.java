@@ -22,7 +22,8 @@ public abstract class Shape implements  Drawable {
   }
 
   public abstract Point getPoint1();
-
+  public abstract void setPoint1(Point point);
+  public abstract void setPoint2(Point point);
   public abstract Point getPoint2();
 
   public abstract String getName();

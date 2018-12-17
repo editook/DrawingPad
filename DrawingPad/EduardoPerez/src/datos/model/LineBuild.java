@@ -6,12 +6,12 @@ import shapes.LineShape;
 import shapes.Shape;
 import shapes.TwoEndsShape;
 
-public class Line extends Rebuild {
+public class LineBuild extends Rebuild {
 
   private Color color;
   private Point point1, point2;
 
-  public Line(Color color, Point point1, Point point2) {
+  public LineBuild(Color color, Point point1, Point point2) {
     this.color = color;
     this.point2 = point2;
     this.point1 = point1;

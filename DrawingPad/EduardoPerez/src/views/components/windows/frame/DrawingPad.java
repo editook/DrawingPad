@@ -105,9 +105,12 @@ public class DrawingPad extends JFrame {
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
     MouseListener actionListenerUndo = new ListenerUndo(this);
     menuBar.addMenu(StaticMenu.UNDO,actionListenerUndo);
-    menuBar.addMenu(StaticMenu.MODE);
-    menuBar.addMenuItem(StaticMenu.MODE, StaticMenu.EDITION);
-    menuBar.addMenuItem(StaticMenu.MODE, StaticMenu.SELECTION);
+    menuBar.addMenu(StaticMenu.NEW_CLASS);
+    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.CLASS);
+    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.RELATION_SHIP);
+    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.NONE);
+    menuBar.addMenu(StaticMenu.EDIT);
+    menuBar.addMenuItem(StaticMenu.EDIT,StaticMenu.CLASS_NAME);
     // horizontal space
     menuBar.addEspace();
     menuBar.addMenu(StaticMenu.HELP);
@@ -153,9 +156,9 @@ public class DrawingPad extends JFrame {
   private ToolKit createToolkit() {
     toolkit = new ToolKit();
     toolkit.addTool(new ScribbleTool(canvas, "Scribble"));
-    toolkit.addTool(new TwoEndsTool(canvas, "Line", new LineShape(Color.yellow)));
-    toolkit.addTool(new TwoEndsTool(canvas, "Oval", new OvalShape(Color.yellow)));
-    toolkit.addTool(new TwoEndsTool(canvas, "Rectangle", new RectangleShape(Color.yellow)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Line", new LineShape(Color.BLACK)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Oval", new OvalShape(Color.BLACK)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Rectangle", new RectangleShape(Color.BLACK)));
     return toolkit;
   }
 

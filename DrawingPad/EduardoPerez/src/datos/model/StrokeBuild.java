@@ -7,12 +7,12 @@ import java.util.List;
 import shapes.Shape;
 import shapes.StrokeShape;
 
-public class Stroke extends Rebuild {
+public class StrokeBuild extends Rebuild {
 
   private List<Point> points;
   private Color color;
 
-  public Stroke(Color color, List<Point> points) {
+  public StrokeBuild(Color color, List<Point> points) {
     this.color = color;
     this.points = points;
   }

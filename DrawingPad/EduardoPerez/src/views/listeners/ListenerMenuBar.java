@@ -49,9 +49,12 @@ public class ListenerMenuBar implements ActionListener {
       case StaticMenu.ABOUT:
         aboutListener();
         break;
-      case StaticMenu.EDITION:canvas.setChangeMouseEdition(false);
+      case StaticMenu.RELATION_SHIP:canvas.setChangeMouseEdition(2);
         break;
-      case StaticMenu.SELECTION:canvas.setChangeMouseEdition(true);
+      case StaticMenu.NONE:canvas.setChangeMouseEdition(0);
+        break;
+      case StaticMenu.CLASS:canvas.setChangeMouseEdition(1);break;
+      case StaticMenu.CLASS_NAME:canvas.setChangeMouseEdition(3);
     }
 
   }
