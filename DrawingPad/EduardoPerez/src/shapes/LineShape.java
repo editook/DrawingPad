@@ -7,10 +7,13 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class LineShape extends TwoEndsShape {
+
   private static final String LINE = "Line";
+
   public LineShape(Color color) {
     super(color);
   }
+
   @Override
   public void draw(Graphics g) {
     Point point1 = getPoint1();

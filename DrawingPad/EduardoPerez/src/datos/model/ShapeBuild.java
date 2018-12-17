@@ -1,9 +1,11 @@
 package datos.model;
 
+import java.awt.Color;
 import java.io.Serializable;
-import shapes.Shape;
 
 public interface ShapeBuild extends Serializable {
 
-  Shape getShape();
+  String getName();
+
+  Color getColor();
 }

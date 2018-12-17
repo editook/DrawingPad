@@ -1,14 +1,15 @@
 package views.listeners;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import views.components.windows.frame.DrawingPad;
 
 public class ListenerUndo implements MouseListener {
+
   private DrawingPad drawingPad;
-  public ListenerUndo(DrawingPad drawingPad){
+
+  public ListenerUndo(DrawingPad drawingPad) {
     this.drawingPad = drawingPad;
   }
 

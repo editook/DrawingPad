@@ -13,6 +13,7 @@ public class RectangleShape extends TwoEndsShape {
   public RectangleShape(Color color) {
     super(color);
   }
+
   @Override
   public void draw(Graphics g) {
     Point point1 = getPoint1();
@@ -21,7 +22,9 @@ public class RectangleShape extends TwoEndsShape {
     int y = Math.min(point1.y, point2.y);
     int w = Math.abs(point1.x - point2.x) + 1;
     int h = Math.abs(point1.y - point2.y) + 1;
+
     g.drawRect(x, y, w, h);
+
   }
 
   public String getName() {

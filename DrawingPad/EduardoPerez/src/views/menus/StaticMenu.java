@@ -14,6 +14,9 @@ public class StaticMenu {
   public static final String RELATION_SHIP = "Mode RelationShip";
   public static final String CLASS_NAME = "Class name";
   public static final String NONE = "None";
+  public static final String HERENCIA = "Herencia";
+  public static final String ASOCIATION = "Asociation";
+  public static final String RElATION_SIMPLE = "Relacion Simple";
   /* names menus of Title */
   public static final String FILE = "File";
   public static final String OPTION = "Option";

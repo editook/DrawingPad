@@ -2,34 +2,32 @@ package datos.model;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.Iterator;
 import java.util.List;
-import shapes.Shape;
-import shapes.StrokeShape;
 
 public class StrokeBuild extends Rebuild {
 
   private List<Point> points;
   private Color color;
+  private String name;
 
   public StrokeBuild(Color color, List<Point> points) {
     this.color = color;
     this.points = points;
+    name = "StrokeShape";
   }
 
   @Override
-  public Shape getShape() {
-    StrokeShape shape = new StrokeShape(color);
-    Point prev = null;
-    Iterator iter = points.iterator();
-    while (iter.hasNext()) {
-      Point point = (Point) iter.next();
-      if (prev != null) {
-        shape.addPoint(point);
-      }
-      prev = point;
-    }
-
-    return shape;
+  public Color getColor() {
+    return color;
   }
+
+  public List<Point> getPoints() {
+    return points;
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
 }

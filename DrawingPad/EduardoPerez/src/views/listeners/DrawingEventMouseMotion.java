@@ -1,31 +1,29 @@
 package views.listeners;
 
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import shapes.Shape;
-import views.canvas.toolkit.ScribbleTool;
 import views.canvas.toolkit.Tool;
-import views.components.windows.frame.ListShape;
 import views.components.windows.panels.DrawingCanvas;
 
 public class DrawingEventMouseMotion implements MouseMotionListener {
+
   private Cursor cursorSelection;
   private Cursor cursorEdition;
   private Tool tool;
   private DrawingCanvas canvas;
   private Rectangle rectangle;
-  public DrawingEventMouseMotion(DrawingCanvas canvas, Tool tool){
+
+  public DrawingEventMouseMotion(DrawingCanvas canvas, Tool tool) {
     this.tool = tool;
     this.canvas = canvas;
     cursorSelection = new Cursor(Cursor.HAND_CURSOR);
     cursorEdition = new Cursor(Cursor.DEFAULT_CURSOR);
-    rectangle = new Rectangle(0,0,5,5);
+    rectangle = new Rectangle(0, 0, 5, 5);
   }
+
   public void setTool(Tool tool) {
     this.tool = tool;
   }
@@ -34,7 +32,7 @@ public class DrawingEventMouseMotion implements MouseMotionListener {
   public void mouseDragged(MouseEvent mouseEvent) {
     int value = canvas.stateMouseEdition();
     Point point = mouseEvent.getPoint();
-    if(value ==0){
+    if (value == 0) {
       tool.addPointToShape(point);
     }
   }

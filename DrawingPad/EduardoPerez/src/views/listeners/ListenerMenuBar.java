@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 import views.components.windows.dialogs.colors.ColorDialog;
 import views.components.windows.dialogs.files.PathDialog;
 import views.components.windows.dialogs.files.PathDialogI;
-import views.components.windows.panels.DrawingCanvas;
 import views.components.windows.frame.DrawingPad;
+import views.components.windows.panels.DrawingCanvas;
 import views.menus.StaticMenu;
 
 public class ListenerMenuBar implements ActionListener {
@@ -49,12 +49,31 @@ public class ListenerMenuBar implements ActionListener {
       case StaticMenu.ABOUT:
         aboutListener();
         break;
-      case StaticMenu.RELATION_SHIP:canvas.setChangeMouseEdition(2);
+      case StaticMenu.RELATION_SHIP:
+        canvas.setChangeMouseEdition(2);
         break;
-      case StaticMenu.NONE:canvas.setChangeMouseEdition(0);
+      case StaticMenu.NONE:
+        canvas.setChangeMouseEdition(0);
+        canvas.setCurrentColor(Color.BLACK);
         break;
-      case StaticMenu.CLASS:canvas.setChangeMouseEdition(1);break;
-      case StaticMenu.CLASS_NAME:canvas.setChangeMouseEdition(3);
+      case StaticMenu.CLASS:
+        canvas.setChangeMouseEdition(1);
+        break;
+      case StaticMenu.CLASS_NAME:
+        canvas.setChangeMouseEdition(3);
+        break;
+      case StaticMenu.HERENCIA:
+        canvas.setChangeMouseEdition(2);
+        canvas.setTypeRelationShip(1);
+        break;
+      case StaticMenu.ASOCIATION:
+        canvas.setChangeMouseEdition(2);
+        canvas.setTypeRelationShip(2);
+        break;
+      case StaticMenu.RElATION_SIMPLE:
+        canvas.setChangeMouseEdition(2);
+        canvas.setTypeRelationShip(0);
+        break;
     }
 
   }

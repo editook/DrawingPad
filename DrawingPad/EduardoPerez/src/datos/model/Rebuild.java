@@ -1,9 +1,6 @@
 package datos.model;
 
-import shapes.Shape;
+abstract class Rebuild implements ShapeBuild {
 
-public abstract class Rebuild implements ShapeBuild {
-
-  public abstract Shape getShape();
 
 }

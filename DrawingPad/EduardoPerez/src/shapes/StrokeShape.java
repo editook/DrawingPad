@@ -9,9 +9,10 @@ import java.util.List;
 
 public class StrokeShape extends Shape {
 
+  private static final String STROKE_SHAPE = "StrokeShape";
   private List<Point> points;
   private Color color;
-  private static final String STROKE_SHAPE = "StrokeShape";
+
   public StrokeShape(Color color) {
     super(color);
     this.color = color;
@@ -28,11 +29,6 @@ public class StrokeShape extends Shape {
 
   }
 
-  @Override
-  public void setPoint2(Point point) {
-
-  }
-
   public String getName() {
     return STROKE_SHAPE;
   }
@@ -40,6 +36,11 @@ public class StrokeShape extends Shape {
   @Override
   public Point getPoint2() {
     return null;
+  }
+
+  @Override
+  public void setPoint2(Point point) {
+
   }
 
   public void addPoint(Point point) {
@@ -56,6 +57,10 @@ public class StrokeShape extends Shape {
   public ArrayList<Point> getPoints() {
 
     return (ArrayList<Point>) points;
+  }
+
+  public void setPoints(List<Point> points) {
+    this.points = points;
   }
 
   @Override

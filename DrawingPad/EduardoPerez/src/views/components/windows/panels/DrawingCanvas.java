@@ -9,10 +9,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Iterator;
 import javax.swing.JPanel;
-import org.omg.PortableServer.POA;
 import shapes.Drawable;
 import shapes.Shape;
-import shapes.TwoEndsShape;
 import views.canvas.toolkit.Tool;
 import views.components.windows.frame.ListShape;
 import views.listeners.DrawingCanvasListener;
@@ -24,11 +22,13 @@ public class DrawingCanvas extends JPanel {
   private Color currentColor = Color.black;
   private int modeEition;
   private DrawingCanvasListener listener;
+  private int typeRelationShip;
 
   public DrawingCanvas() {
     shapes = new ListShape();
     listener = makeCanvasListener();
     modeEition = 0;
+    typeRelationShip = 0;
   }
 
   public Color getCurrentColor() {
@@ -44,7 +44,8 @@ public class DrawingCanvas extends JPanel {
       shapes.add((Shape) shape);
     }
   }
-  public ListShape getShapes(){
+
+  public ListShape getShapes() {
     return shapes;
   }
 
@@ -70,6 +71,10 @@ public class DrawingCanvas extends JPanel {
     }
   }
 
+  public void setTypeRelationShip(int typeRelationShip) {
+    this.typeRelationShip = typeRelationShip;
+  }
+
   public void newFile() {
     shapes.clear();
     repaint();
@@ -90,12 +95,15 @@ public class DrawingCanvas extends JPanel {
     Connection.setFileSerialized(modeloSerializable, currentFilename);
 
   }
-  public void setChangeMouseEdition(int modeEition){
+
+  public void setChangeMouseEdition(int modeEition) {
     this.modeEition = modeEition;
   }
-  public int stateMouseEdition(){
+
+  public int stateMouseEdition() {
     return modeEition;
   }
+
   private DrawingCanvasListener makeCanvasListener() {
     return new DrawingCanvasListener(this);
   }
@@ -118,12 +126,12 @@ public class DrawingCanvas extends JPanel {
   }
 
   public void changeClassName(String name, Point pointer) {
-    if(name!=null){
-      shapes.renameClassName(name,pointer);
+    if (name != null) {
+      shapes.renameClassName(name, pointer);
     }
   }
 
   public void addRelationShape(Shape relationShip) {
-    shapes.addRelationShapre(relationShip);
+    shapes.addRelationShapre(relationShip, typeRelationShip);
   }
 }

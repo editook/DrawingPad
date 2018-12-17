@@ -1,13 +1,12 @@
 package views.menus;
 
-import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import views.components.windows.panels.DrawingCanvas;
 import views.components.windows.frame.DrawingPad;
+import views.components.windows.panels.DrawingCanvas;
 import views.listeners.ListenerMenuBar;
 
 public class MenuBar extends JMenuBar {
@@ -31,6 +30,25 @@ public class MenuBar extends JMenuBar {
     if (menu != null) {
       menu.add(getNewItem(nameItem));
     }
+  }
+
+
+  public void createMenu(String name, String subMenu1, String subMenu2, String subMenu3) {
+    JMenu menu2 = getMenu(StaticMenu.NEW_CLASS);
+    JMenu menu = new JMenu(name);
+    JMenuItem menuItem1 = new JMenuItem(subMenu1);
+    menuItem1.setActionCommand(subMenu1);
+    menuItem1.addActionListener(listenerMenu);
+    JMenuItem menuItem2 = new JMenuItem(subMenu2);
+    menuItem2.setActionCommand(subMenu2);
+    menuItem2.addActionListener(listenerMenu);
+    JMenuItem menuItem3 = new JMenuItem(subMenu3);
+    menuItem3.setActionCommand(subMenu3);
+    menuItem3.addActionListener(listenerMenu);
+    menu.add(menuItem1);
+    menu.add(menuItem2);
+    menu.add(menuItem3);
+    menu2.add(menu);
   }
 
   private JMenu getMenu(String nameMenu) {

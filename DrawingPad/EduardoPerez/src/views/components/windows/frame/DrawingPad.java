@@ -67,12 +67,12 @@ public class DrawingPad extends JFrame {
 
   }
 
-  public void UndoChange(){
+  public void UndoChange() {
     canvas.UndoChange();
   }
+
   private void exitDrawingPad(boolean status) {
     if (status) {
-      canvas.saveFile(currentFileName);
       System.exit(0);
     } else {
       setDefaultCloseOperation(DrawingPad.DO_NOTHING_ON_CLOSE);
@@ -104,13 +104,15 @@ public class DrawingPad extends JFrame {
     menuBar.addMenu(StaticMenu.OPTION);
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
     MouseListener actionListenerUndo = new ListenerUndo(this);
-    menuBar.addMenu(StaticMenu.UNDO,actionListenerUndo);
+    menuBar.addMenu(StaticMenu.UNDO, actionListenerUndo);
     menuBar.addMenu(StaticMenu.NEW_CLASS);
     menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.CLASS);
-    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.RELATION_SHIP);
+    menuBar.createMenu(StaticMenu.RELATION_SHIP, StaticMenu.HERENCIA, StaticMenu.ASOCIATION,
+        StaticMenu.RElATION_SIMPLE);
+
     menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.NONE);
     menuBar.addMenu(StaticMenu.EDIT);
-    menuBar.addMenuItem(StaticMenu.EDIT,StaticMenu.CLASS_NAME);
+    menuBar.addMenuItem(StaticMenu.EDIT, StaticMenu.CLASS_NAME);
     // horizontal space
     menuBar.addEspace();
     menuBar.addMenu(StaticMenu.HELP);
@@ -164,7 +166,7 @@ public class DrawingPad extends JFrame {
 
   private JComponent createToolBar(ActionListener toolListener) {
     JPanel toolbar = new JPanel(new GridLayout(0, 1));
-    for (Tool tool: toolkit.getTools()) {
+    for (Tool tool : toolkit.getTools()) {
       JButton button = new JButton(tool.getName());
       button.addActionListener(toolListener);
       toolbar.add(button);
@@ -174,10 +176,10 @@ public class DrawingPad extends JFrame {
 
   private JMenu createToolMenu(ActionListener toolListener) {
     JMenu menu = new JMenu("Tools");
-    for (Tool tool: toolkit.getTools()) {
-        JMenuItem menuItem = new JMenuItem(tool.getName());
-        menuItem.addActionListener(toolListener);
-        menu.add(menuItem);
+    for (Tool tool : toolkit.getTools()) {
+      JMenuItem menuItem = new JMenuItem(tool.getName());
+      menuItem.addActionListener(toolListener);
+      menu.add(menuItem);
     }
     return menu;
   }

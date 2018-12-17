@@ -7,7 +7,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class OvalShape extends TwoEndsShape {
+
   private static final String OVAL = "Oval";
+
   public OvalShape(Color color) {
     super(color);
   }

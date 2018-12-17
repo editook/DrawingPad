@@ -25,22 +25,26 @@ public abstract class TwoEndsShape extends Shape implements Cloneable {
     this.x2 = x2;
     this.y2 = y2;
   }
-@Override
-  public void setPoint1(Point point1){
-    x1 =point1.x;
-    y1 = point1.y;
-  }
+
   @Override
-  public void setPoint2(Point point1){
-    x2 =point1.x;
-    y2 = point1.y;
-  }
-@Override
   public Point getPoint1() {
     return new Point(x1, y1);
   }
+
+  @Override
+  public void setPoint1(Point point1) {
+    x1 = point1.x;
+    y1 = point1.y;
+  }
+
   @Override
   public Point getPoint2() {
     return new Point(x2, y2);
+  }
+
+  @Override
+  public void setPoint2(Point point1) {
+    x2 = point1.x;
+    y2 = point1.y;
   }
 }

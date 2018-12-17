@@ -2,22 +2,25 @@ package shapes.uml;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import shapes.Drawable;
 import shapes.RectangleShape;
 
 public class ClassShape extends RectangleShape {
+
   private static final String CLASS = "Class";
   private String titleClass;
 
   public ClassShape(Color color) {
     super(color);
-    titleClass ="Untitled";
+    titleClass = "Untitled";
   }
 
-  public void setTitleClass(String titleClass){
-    if(titleClass!=null){
+  public String getTitleClass() {
+    return titleClass;
+  }
+
+  public void setTitleClass(String titleClass) {
+    if (titleClass != null) {
       this.titleClass = titleClass;
     }
   }
@@ -27,9 +30,11 @@ public class ClassShape extends RectangleShape {
   }
 
   @Override
-  public void draw(Graphics g){
+  public void draw(Graphics g) {
+    g.setColor(Color.CYAN);
     super.draw(g);
+    g.setColor(Color.BLACK);
     Point point1 = getPoint1();
-    g.drawString(titleClass,point1.x+10,point1.y+12);
+    g.drawString(titleClass, point1.x + 10, point1.y + 12);
   }
 }

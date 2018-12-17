@@ -1,9 +1,11 @@
 package views.components.windows.frame;
 
 import datos.Connection;
+import datos.model.ClassBuild;
 import datos.model.LineBuild;
 import datos.model.OvalBuild;
 import datos.model.RectangleBuild;
+import datos.model.RelationShipBuild;
 import datos.model.ShapeBuild;
 import datos.model.StrokeBuild;
 import datos.modelserializer.ListModelShape;
@@ -13,7 +15,11 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import shapes.LineShape;
+import shapes.OvalShape;
+import shapes.RectangleShape;
 import shapes.Shape;
+import shapes.StrokeShape;
 import shapes.TwoEndsShape;
 import shapes.uml.ClassShape;
 import shapes.uml.RelationShip;
@@ -21,14 +27,16 @@ import shapes.uml.RelationShip;
 public class ListShape {
 
   private static List<Shape> shapeList;
-  private Point pointerMouse;
+  private boolean shapeChanges;
+
   public ListShape() {
     shapeList = new ArrayList<Shape>();
-    pointerMouse = new Point(0,0);
+    shapeChanges = false;
   }
 
   public List<Shape> getShapes() {
     return shapeList;
+
   }
 
   public List<ModelShape> updateShapesList() {
@@ -53,12 +61,40 @@ public class ListShape {
         break;
       case "StrokeShape":
         shapeBuild = new StrokeBuild(shape.getColor(), shape.getPoints());
+        break;
+      case "Class":
+        ClassShape classShape = (ClassShape) shape;
+        shapeBuild = new ClassBuild(classShape.getColor(), classShape.getPoint1(),
+            classShape.getPoint2(), classShape.getTitleClass());
+        break;
+      case "RelationShip":
+        shapeBuild = createRelationShip(shape);
+
+
     }
     return shapeBuild;
   }
 
+  private RelationShipBuild createRelationShip(Shape shape) {
+    RelationShipBuild shapeBuild;
+    RelationShip relationShip = (RelationShip) shape;
+    ClassShape classShape1 = (ClassShape) relationShip.getClassShape1();
+    ClassShape classShape2 = (ClassShape) relationShip.getClassShape2();
+    ClassBuild classBuild1 = new ClassBuild(classShape1.getColor(), classShape1.getPoint1(),
+        classShape1.getPoint2(), classShape1.getTitleClass());
+    ClassBuild classBuild2 = new ClassBuild(classShape2.getColor(), classShape2.getPoint1(),
+        classShape2.getPoint2(), classShape2.getTitleClass());
+    shapeBuild = new RelationShipBuild(shape.getColor(), relationShip.getPoint1(),
+        relationShip.getPoint2());
+    shapeBuild.setTypeRaltion(relationShip.gettypeRelation());
+    shapeBuild.setRelationPrimary(classBuild1);
+    shapeBuild.setRelationSecundary(classBuild2);
+    return shapeBuild;
+  }
+
   public void add(Shape shape) {
-      shapeList.add(shape);
+    shapeList.add(shape);
+    shapeChanges = true;
   }
 
   public Iterator<Shape> iterator() {
@@ -70,7 +106,7 @@ public class ListShape {
   }
 
   public boolean isEmpty() {
-    return shapeList.isEmpty();
+    return !shapeChanges;
   }
 
   public void updateList(String filename) {
@@ -79,26 +115,94 @@ public class ListShape {
 
     for (ModelShape modelShape : shareList) {
       ShapeBuild shapeBuild = modelShape.getShapeBuild();
-      add(shapeBuild.getShape());
+      add(createShape(shapeBuild));
     }
+    shapeChanges = false;
+  }
+
+  private Shape createShape(ShapeBuild shapeBuild) {
+    Shape ouput = null;
+    switch (shapeBuild.getName()) {
+      case "Line":
+        System.out.println("Line entro");
+        LineBuild lineBuild = (LineBuild) shapeBuild;
+        TwoEndsShape line = new LineShape(lineBuild.getColor());
+        Point point1 = lineBuild.getPoint1();
+        Point point2 = lineBuild.getPoint2();
+        line.setPoint1(point1);
+        line.setPoint2(point2);
+        ouput = line;
+        break;
+      case "Oval":
+        OvalBuild ovalBuild = (OvalBuild) shapeBuild;
+        TwoEndsShape oval = new OvalShape(ovalBuild.getColor());
+        oval.setPoint1(ovalBuild.getPoint1());
+        oval.setPoint2(ovalBuild.getPoint2());
+        ouput = oval;
+        break;
+      case "Rectangle":
+        RectangleBuild rectangleBuild = (RectangleBuild) shapeBuild;
+        TwoEndsShape rectangle = new RectangleShape(rectangleBuild.getColor());
+        rectangle.setPoint1(rectangleBuild.getPoint1());
+        rectangle.setPoint2(rectangleBuild.getPoint2());
+        ouput = rectangle;
+        break;
+      case "Class":
+        ClassBuild classBuild = (ClassBuild) shapeBuild;
+        ClassShape classShape = new ClassShape(classBuild.getColor());
+        classShape.setTitleClass(classBuild.getNameClass());
+        classShape.setPoint1(classBuild.getPoint1());
+        classShape.setPoint2(classBuild.getPoint2());
+        ouput = classShape;
+        break;
+      case "RelationShip":
+        RelationShipBuild rectangleBuild1 = (RelationShipBuild) shapeBuild;
+        ClassBuild classBuild1 = rectangleBuild1.getClassBuild1();
+        ClassShape classShape1 = new ClassShape(classBuild1.getColor());
+        classShape1.setTitleClass(classBuild1.getNameClass());
+        classShape1.setPoint1(classBuild1.getPoint1());
+        classShape1.setPoint2(classBuild1.getPoint2());
+
+        ClassBuild classBuild2 = rectangleBuild1.getClassBuild2();
+        ClassShape classShape2 = new ClassShape(classBuild2.getColor());
+        classShape2.setTitleClass(classBuild2.getNameClass());
+        classShape2.setPoint1(classBuild2.getPoint1());
+        classShape2.setPoint2(classBuild2.getPoint2());
+
+        RelationShip relationShip = new RelationShip(rectangleBuild1.getColor(), classShape1,
+            classShape2, rectangleBuild1.getTypeRelation());
+        relationShip.setPoint1(rectangleBuild1.getPoint1());
+        relationShip.setPoint2(rectangleBuild1.getPoint2());
+        ouput = relationShip;
+        break;
+      case "StrokeShape":
+        StrokeBuild strokeBuild = (StrokeBuild) shapeBuild;
+        StrokeShape strokeShape = new StrokeShape(strokeBuild.getColor());
+        strokeShape.setPoints(strokeBuild.getPoints());
+        ouput = strokeShape;
+        break;
+
+
+    }
+    return ouput;
   }
 
   public void removeLatest() {
-    if(shapeList.size()-1>=0){
-      shapeList.remove( shapeList.size()-1);
+    if (shapeList.size() - 1 >= 0) {
+      shapeList.remove(shapeList.size() - 1);
     }
   }
 
   public boolean isColisionClass(Point point) {
-    Rectangle pointer = new Rectangle(point.x,point.y,5,5);
+    Rectangle pointer = new Rectangle(point.x, point.y, 5, 5);
     for (Shape shape : shapeList) {
-      if(shape.getName().equals("Class")){
+      if (shape.getName().equals("Class")) {
         Point point1 = shape.getPoint1();
         Point point2 = shape.getPoint2();
-        int x = Math.abs(point1.x-point2.x);
-        int y = Math.abs(point1.y-point2.y);
-        Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
-        if(pointer.intersects(rectangle1)){
+        int x = Math.abs(point1.x - point2.x);
+        int y = Math.abs(point1.y - point2.y);
+        Rectangle rectangle1 = new Rectangle(point1.x, point1.y, x, y);
+        if (pointer.intersects(rectangle1)) {
           return true;
         }
       }
@@ -107,15 +211,15 @@ public class ListShape {
   }
 
   public void renameClassName(String name, Point point) {
-    Rectangle pointer = new Rectangle(point.x,point.y,5,5);
+    Rectangle pointer = new Rectangle(point.x, point.y, 5, 5);
     for (Shape shape : shapeList) {
-      if(shape.getName().equals("Class")){
+      if (shape.getName().equals("Class")) {
         Point point1 = shape.getPoint1();
         Point point2 = shape.getPoint2();
-        int x = Math.abs(point1.x-point2.x);
-        int y = Math.abs(point1.y-point2.y);
-        Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
-        if(pointer.intersects(rectangle1)){
+        int x = Math.abs(point1.x - point2.x);
+        int y = Math.abs(point1.y - point2.y);
+        Rectangle rectangle1 = new Rectangle(point1.x, point1.y, x, y);
+        if (pointer.intersects(rectangle1)) {
           ClassShape classShape = (ClassShape) shape;
           classShape.setTitleClass(name);
         }
@@ -123,49 +227,48 @@ public class ListShape {
     }
   }
 
-  public void addRelationShapre(Shape relationShip) {
+  public void addRelationShapre(Shape relationShip, int typeRelationShip) {
     Point p1 = relationShip.getPoint1();
     Point p2 = relationShip.getPoint2();
-    Rectangle pointer1 = new Rectangle(p1.x,p1.y,5,5);
-    Rectangle pointer2 = new Rectangle(p2.x,p2.y,5,5);
-    Shape shape1=null,shape2=null;
+    Rectangle pointer1 = new Rectangle(p1.x, p1.y, 5, 5);
+    Rectangle pointer2 = new Rectangle(p2.x, p2.y, 5, 5);
+    Shape shape1 = null, shape2 = null;
     boolean stateRelation = false;
     for (Shape shape : shapeList) {//ini
-      if(shape.getName().equals("Class")){
+      if (shape.getName().equals("Class")) {
         Point point1 = shape.getPoint1();
         Point point2 = shape.getPoint2();
-        int x = Math.abs(point1.x-point2.x);
-        int y = Math.abs(point1.y-point2.y);
-        Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
-        if(pointer1.intersects(rectangle1)){
+        int x = Math.abs(point1.x - point2.x);
+        int y = Math.abs(point1.y - point2.y);
+        Rectangle rectangle1 = new Rectangle(point1.x, point1.y, x, y);
+        if (pointer1.intersects(rectangle1)) {
           shape1 = shape;
-          System.out.println("primero");
-          stateRelation =true;
+          stateRelation = true;
           break;
         }
       }
     }
-    if(stateRelation){
+    if (stateRelation) {
       stateRelation = false;
       for (Shape shape : shapeList) {
-        if(shape.getName().equals("Class")){
+        if (shape.getName().equals("Class")) {
           Point point1 = shape.getPoint1();
           Point point2 = shape.getPoint2();
-          int x = Math.abs(point1.x-point2.x);
-          int y = Math.abs(point1.y-point2.y);
-          Rectangle rectangle1 = new Rectangle(point1.x,point1.y,x,y);
-          if(pointer2.intersects(rectangle1)){
+          int x = Math.abs(point1.x - point2.x);
+          int y = Math.abs(point1.y - point2.y);
+          Rectangle rectangle1 = new Rectangle(point1.x, point1.y, x, y);
+          if (pointer2.intersects(rectangle1)) {
             shape2 = shape;
-            System.out.println("segundo");
             stateRelation = true;
             break;
           }
         }
       }
     }
-    if(stateRelation){
-      System.out.println("creo");
-      RelationShip relationShip1 = new RelationShip(relationShip.getColor(), shape1,shape2,1);
+    if (stateRelation) {
+      RelationShip relationShip1 = new RelationShip(relationShip.getColor(), shape1, shape2,
+          typeRelationShip);
+
       add(relationShip1);
     }
   }

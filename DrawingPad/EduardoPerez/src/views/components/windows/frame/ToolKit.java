@@ -12,9 +12,10 @@ public class ToolKit {
     tools = new ArrayList<Tool>();
   }
 
-  public List<Tool>getTools(){
+  public List<Tool> getTools() {
     return tools;
   }
+
   /**
    * Add a new tool to the tool kit. Return the index of the new tool.
    *
@@ -26,8 +27,8 @@ public class ToolKit {
     }
   }
 
-  public Tool getFirst(){
-    if(!tools.isEmpty()){
+  public Tool getFirst() {
+    if (!tools.isEmpty()) {
       return tools.get(0);
     }
     return null;
