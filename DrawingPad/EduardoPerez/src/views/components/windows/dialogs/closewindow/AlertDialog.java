@@ -3,21 +3,29 @@ package views.components.windows.dialogs.closewindow;
 import javax.swing.JOptionPane;
 import views.components.windows.frame.DrawingPad;
 
-public abstract class AlertDialog extends JOptionPane {
+public abstract class AlertDialog extends JOptionPane implements ChangeDialog {
 
-  private String title, message;
   private DrawingPad drawingPad;
 
-  public AlertDialog(String title, String message, DrawingPad drawingPad) {
+  public AlertDialog(DrawingPad drawingPad) {
     this.drawingPad = drawingPad;
-    this.message = message;
-    this.title = title;
   }
+
+  @Override
+  public abstract void setMesssage(String message);
+
+  @Override
+  public abstract String getTitle();
+
+  @Override
+  public abstract void setTitle(String title);
+
+  public abstract String getMessage();
 
   public boolean alertExitSaveChanges() {
     int result = showConfirmDialog(drawingPad,
-        message,
-        title,
+        getMessage(),
+        getTitle(),
         YES_NO_OPTION);
     return result == YES_OPTION;
   }

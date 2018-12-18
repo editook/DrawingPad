@@ -22,17 +22,12 @@ public class RectangleShape extends TwoEndsShape {
     int y = Math.min(point1.y, point2.y);
     int w = Math.abs(point1.x - point2.x) + 1;
     int h = Math.abs(point1.y - point2.y) + 1;
-
     g.drawRect(x, y, w, h);
-
   }
 
+  @Override
   public String getName() {
     return RECTANGLE;
   }
 
-  @Override
-  public ArrayList<Point> getPoints() {
-    return new ArrayList<Point>();
-  }
 }

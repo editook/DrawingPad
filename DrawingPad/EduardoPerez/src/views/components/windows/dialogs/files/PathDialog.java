@@ -4,7 +4,6 @@ import views.components.windows.frame.DrawingPad;
 
 public class PathDialog implements PathDialogI {
 
-  private static final String SAVE_AS = "Save As";
   private FileChooser fileChooser;
 
   public PathDialog(DrawingPad drawingPad) {
@@ -15,11 +14,6 @@ public class PathDialog implements PathDialogI {
   public String openFileListener(String title) {
 
     return fileChooser.getPathUrlOpen(title);
-  }
-
-  @Override
-  public String saveFileListener() {
-    return fileChooser.getPathUrlSave(SAVE_AS);
   }
 
   @Override

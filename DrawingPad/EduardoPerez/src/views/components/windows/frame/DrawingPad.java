@@ -1,7 +1,6 @@
 package views.components.windows.frame;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -15,15 +14,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import shapes.LineShape;
-import shapes.OvalShape;
-import shapes.RectangleShape;
-import views.canvas.toolkit.ScribbleTool;
+import shapes.uml.ClassShape;
+import shapes.uml.RelationShip;
 import views.canvas.toolkit.Tool;
 import views.canvas.toolkit.TwoEndsTool;
 import views.components.windows.dialogs.closewindow.AlertDialog;
-import views.components.windows.dialogs.closewindow.AlertDialogExit;
-import views.components.windows.dialogs.closewindow.AlertDialogSave;
+import views.components.windows.dialogs.closewindow.AlertExit;
 import views.components.windows.panels.DrawingCanvas;
 import views.listeners.ListenerUndo;
 import views.menus.MenuBar;
@@ -50,19 +46,19 @@ public class DrawingPad extends JFrame {
   }
 
   public void exit() {
-    AlertDialog alert;
+    AlertDialog alert = new AlertExit(this);
     boolean mode = canvas.stateShapes();
+    alert.setTitle("Exit Scribble Pad?");
     if (mode) {
-      alert = new AlertDialogSave("Exit Scribble Pad?",
-          "Do you want to save changes", this);
+      alert.setMesssage("Do you want to save changes");
     } else {
-      alert = new AlertDialogExit("Exit Scribble Pad?",
-          "Do you want to exit Scribble Pad?", this);
+      alert.setMesssage("Do you want to exit Scribble Pad?");
     }
+    boolean request = alert.alertExitSaveChanges();
     if (mode) {
-      saveChanges(alert.alertExitSaveChanges());
+      saveChanges(request);
     } else {
-      exitDrawingPad(alert.alertExitSaveChanges());
+      exitDrawingPad(request);
     }
 
   }
@@ -105,12 +101,6 @@ public class DrawingPad extends JFrame {
     menuBar.addMenuItem(StaticMenu.OPTION, StaticMenu.COLOR);
     MouseListener actionListenerUndo = new ListenerUndo(this);
     menuBar.addMenu(StaticMenu.UNDO, actionListenerUndo);
-    menuBar.addMenu(StaticMenu.NEW_CLASS);
-    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.CLASS);
-    menuBar.createMenu(StaticMenu.RELATION_SHIP, StaticMenu.HERENCIA, StaticMenu.ASOCIATION,
-        StaticMenu.RElATION_SIMPLE);
-
-    menuBar.addMenuItem(StaticMenu.NEW_CLASS, StaticMenu.NONE);
     menuBar.addMenu(StaticMenu.EDIT);
     menuBar.addMenuItem(StaticMenu.EDIT, StaticMenu.CLASS_NAME);
     // horizontal space
@@ -157,13 +147,15 @@ public class DrawingPad extends JFrame {
 
   private ToolKit createToolkit() {
     toolkit = new ToolKit();
-    toolkit.addTool(new ScribbleTool(canvas, "Scribble"));
-    toolkit.addTool(new TwoEndsTool(canvas, "Line", new LineShape(Color.BLACK)));
-    toolkit.addTool(new TwoEndsTool(canvas, "Oval", new OvalShape(Color.BLACK)));
-    toolkit.addTool(new TwoEndsTool(canvas, "Rectangle", new RectangleShape(Color.BLACK)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Class",new ClassShape(canvas.getCurColor())));
+    toolkit.addTool(new TwoEndsTool(canvas, "Inheritance",createRelationShip(1)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Agregation", createRelationShip(2)));
+    toolkit.addTool(new TwoEndsTool(canvas, "Association", createRelationShip(0)));
     return toolkit;
   }
-
+  private RelationShip createRelationShip(int value){
+    return new RelationShip(canvas.getCurColor(), value);
+  }
   private JComponent createToolBar(ActionListener toolListener) {
     JPanel toolbar = new JPanel(new GridLayout(0, 1));
     for (Tool tool : toolkit.getTools()) {

@@ -4,7 +4,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import views.components.windows.frame.DrawingPad;
 
-public class FileChooser {
+public class FileChooser implements FileChooserI {
 
   private static JFileChooser CHOOSER = new JFileChooser(".");
   private DrawingPad drawingPad;
@@ -13,23 +13,12 @@ public class FileChooser {
     this.drawingPad = drawingPad;
   }
 
-  public String getPathUrlSave(String title) {
-    String output = null;
-    int retval = CHOOSER.showDialog(drawingPad, title);
-    if (retval == JFileChooser.APPROVE_OPTION) {
-      File theFile = CHOOSER.getSelectedFile();
-      if (theFile != null) {
-        if (theFile.isFile()) {
-          return CHOOSER.getSelectedFile().getAbsolutePath();
-        }
-      }
-    }
-    return output;
+  private int getChooser(String title){
+    return CHOOSER.showDialog(drawingPad, title);
   }
-
+  @Override
   public String getPathUrlOpen(String title) {
-    int retval = CHOOSER.showDialog(drawingPad, title);
-    if (retval == JFileChooser.APPROVE_OPTION) {
+    if (getChooser(title) == 0) {
       File theFile = CHOOSER.getSelectedFile();
       if (theFile != null) {
         if (theFile.isFile()) {
@@ -40,10 +29,11 @@ public class FileChooser {
     return null;
   }
 
+  @Override
   public String getPathUrlSaveChanges() {
     String output = null;
-    int retval = CHOOSER.showDialog(drawingPad, "Save As");
-    if (retval == JFileChooser.APPROVE_OPTION) {
+    String title = "Save As";
+    if (getChooser(title)==0) {
       File theFile = CHOOSER.getSelectedFile();
       if (theFile != null) {
         if (!theFile.isDirectory()) {

@@ -23,10 +23,12 @@ public class ClassBuild extends RectangleBuild {
     return nameClass;
   }
 
+  @Override
   public Color getColor() {
     return color;
   }
 
+  @Override
   public Point getPoint1() {
     return point1;
   }
@@ -40,12 +42,9 @@ public class ClassBuild extends RectangleBuild {
     return name;
   }
 
+  @Override
   public Point getPoint2() {
     return point2;
-  }
-
-  public void setPoint2(Point point2) {
-    this.point2 = point2;
   }
 
 }

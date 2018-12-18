@@ -30,5 +30,4 @@ public abstract class Shape implements Drawable {
 
   public abstract String getName();
 
-  public abstract ArrayList<Point> getPoints();
 }

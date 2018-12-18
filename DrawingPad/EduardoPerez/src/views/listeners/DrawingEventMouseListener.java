@@ -15,22 +15,61 @@ public class DrawingEventMouseListener implements MouseListener {
   private Tool tool;
   private DrawingCanvas canvas;
   private TwoEndsShape reacion;
+  private int valueRelationShip;
 
   public DrawingEventMouseListener(DrawingCanvas canvas, Tool tool) {
     this.tool = tool;
     this.canvas = canvas;
+    this.valueRelationShip = 0;
   }
 
   public void setTool(Tool tool) {
     this.tool = tool;
   }
 
+  private void setSelected(String valueSelected) {
+    switch (valueSelected) {
+      case "Inheritance":
+        valueRelationShip = 1;
+        break;
+      case "Agregation":
+        valueRelationShip = 2;
+        break;
+      case "Association":
+        valueRelationShip = 0;
+    }
+  }
+
   @Override
   public void mouseClicked(MouseEvent mouseEvent) {
-    int value = canvas.stateMouseEdition();
     Point point = mouseEvent.getPoint();
-    if (value == 1) {//create class
+    int value = canvas.stateMouseEdition();
+    if (value == 3) {//class edit name
+      if (canvas.isColisionClassShape(point)) {
+        String name = JOptionPane.showInputDialog(canvas, "Rename class name:");
+        canvas.changeClassName(name, point);
+        canvas.repaint();
+      }
+      canvas.setChangeMouseEdition(0);
+    }
+  }
 
+  @Override
+  public void mousePressed(MouseEvent mouseEvent) {
+    Point point = mouseEvent.getPoint();
+    int value = canvas.stateMouseEdition();
+    if (!tool.getName().equals("Class") && value != 3) {
+      setSelected(tool.getName());
+      reacion = new LineShape(canvas.getCurColor());
+      reacion.setPoint1(point);
+    }
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent mouseEvent) {
+    Point point = mouseEvent.getPoint();
+    int value = canvas.stateMouseEdition();
+    if (tool.getName().equals("Class") && value != 3) {
       ClassShape classShape = new ClassShape(canvas.getCurrentColor());
       String name = JOptionPane.showInputDialog(canvas, "Name class name:");
       classShape.setTitleClass(name);
@@ -39,47 +78,12 @@ public class DrawingEventMouseListener implements MouseListener {
       classShape.setPoint2(point1);
       canvas.addShape(classShape);
       canvas.repaint();
-
     }
-
-  }
-
-  @Override
-  public void mousePressed(MouseEvent mouseEvent) {
-    int value = canvas.stateMouseEdition();
-    Point point = mouseEvent.getPoint();
-    if (value == 0) {//figure
-      tool.startShape(point);
-    } else {
-      if (value == 2) {//relationShip
-        //continue
-        reacion = new LineShape(canvas.getCurColor());
-        reacion.setPoint1(point);
-
-      }
-    }
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent mouseEvent) {
-    Point point = mouseEvent.getPoint();
-    int value = canvas.stateMouseEdition();
-    if (value == 0) {//figure
-      tool.endShape(point);
-    } else {
-      if (value == 3) {//class edit name
-        if (canvas.isColisionClassShape(point)) {
-          String name = JOptionPane.showInputDialog(canvas, "Rename class name:");
-          canvas.changeClassName(name, point);
-          canvas.repaint();
-        }
-      } else {
-        if (value == 2) {
-          reacion.setPoint2(point);
-          canvas.addRelationShape(reacion);
-          canvas.repaint();
-        }
-      }
+    if (!tool.getName().equals("Class") && value != 3) {
+      reacion.setPoint2(point);
+      canvas.setTypeRelationShip(valueRelationShip);
+      canvas.addRelationShape(reacion);
+      canvas.repaint();
     }
   }
 

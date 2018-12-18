@@ -38,7 +38,7 @@ public class RelationShipBuild extends LineBuild {
     return typeRelation;
   }
 
-  public void setTypeRaltion(int typeRelation) {
+  public void setTypeRelation(int typeRelation) {
     this.typeRelation = typeRelation;
   }
 

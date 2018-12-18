@@ -21,12 +21,8 @@ public class LineShape extends TwoEndsShape {
     g.drawLine(point1.x, point1.y, point2.x, point2.y);
   }
 
+  @Override
   public String getName() {
     return LINE;
-  }
-
-  @Deprecated
-  public ArrayList<Point> getPoints() {
-    return new ArrayList<Point>();
   }
 }

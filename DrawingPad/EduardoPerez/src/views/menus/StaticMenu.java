@@ -10,18 +10,11 @@ public class StaticMenu {
   public static final String EXIT = "Exit";
   public static final String COLOR = "Color";
   public static final String ABOUT = "About";
-  public static final String CLASS = "Mode Class";
-  public static final String RELATION_SHIP = "Mode RelationShip";
   public static final String CLASS_NAME = "Class name";
-  public static final String NONE = "None";
-  public static final String HERENCIA = "Herencia";
-  public static final String ASOCIATION = "Asociation";
-  public static final String RElATION_SIMPLE = "Relacion Simple";
   /* names menus of Title */
   public static final String FILE = "File";
   public static final String OPTION = "Option";
   public static final String HELP = "Help";
-  public static final String NEW_CLASS = "Selection";
   public static final String UNDO = "Undo";
   public static final String EDIT = "Edit";
 }

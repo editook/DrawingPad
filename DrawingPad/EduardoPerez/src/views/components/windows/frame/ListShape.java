@@ -2,12 +2,8 @@ package views.components.windows.frame;
 
 import datos.Connection;
 import datos.model.ClassBuild;
-import datos.model.LineBuild;
-import datos.model.OvalBuild;
-import datos.model.RectangleBuild;
 import datos.model.RelationShipBuild;
 import datos.model.ShapeBuild;
-import datos.model.StrokeBuild;
 import datos.modelserializer.ListModelShape;
 import datos.modelserializer.ModelShape;
 import java.awt.Point;
@@ -15,12 +11,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import shapes.LineShape;
-import shapes.OvalShape;
-import shapes.RectangleShape;
 import shapes.Shape;
-import shapes.StrokeShape;
-import shapes.TwoEndsShape;
 import shapes.uml.ClassShape;
 import shapes.uml.RelationShip;
 
@@ -50,18 +41,6 @@ public class ListShape {
   private ShapeBuild creatShape(Shape shape) {
     ShapeBuild shapeBuild = null;
     switch (shape.getName()) {
-      case "Line":
-        shapeBuild = new LineBuild(shape.getColor(), shape.getPoint1(), shape.getPoint2());
-        break;
-      case "Rectangle":
-        shapeBuild = new RectangleBuild(shape.getColor(), shape.getPoint1(), shape.getPoint2());
-        break;
-      case "Oval":
-        shapeBuild = new OvalBuild(shape.getColor(), shape.getPoint1(), shape.getPoint2());
-        break;
-      case "StrokeShape":
-        shapeBuild = new StrokeBuild(shape.getColor(), shape.getPoints());
-        break;
       case "Class":
         ClassShape classShape = (ClassShape) shape;
         shapeBuild = new ClassBuild(classShape.getColor(), classShape.getPoint1(),
@@ -75,22 +54,6 @@ public class ListShape {
     return shapeBuild;
   }
 
-  private RelationShipBuild createRelationShip(Shape shape) {
-    RelationShipBuild shapeBuild;
-    RelationShip relationShip = (RelationShip) shape;
-    ClassShape classShape1 = (ClassShape) relationShip.getClassShape1();
-    ClassShape classShape2 = (ClassShape) relationShip.getClassShape2();
-    ClassBuild classBuild1 = new ClassBuild(classShape1.getColor(), classShape1.getPoint1(),
-        classShape1.getPoint2(), classShape1.getTitleClass());
-    ClassBuild classBuild2 = new ClassBuild(classShape2.getColor(), classShape2.getPoint1(),
-        classShape2.getPoint2(), classShape2.getTitleClass());
-    shapeBuild = new RelationShipBuild(shape.getColor(), relationShip.getPoint1(),
-        relationShip.getPoint2());
-    shapeBuild.setTypeRaltion(relationShip.gettypeRelation());
-    shapeBuild.setRelationPrimary(classBuild1);
-    shapeBuild.setRelationSecundary(classBuild2);
-    return shapeBuild;
-  }
 
   public void add(Shape shape) {
     shapeList.add(shape);
@@ -123,30 +86,6 @@ public class ListShape {
   private Shape createShape(ShapeBuild shapeBuild) {
     Shape ouput = null;
     switch (shapeBuild.getName()) {
-      case "Line":
-        System.out.println("Line entro");
-        LineBuild lineBuild = (LineBuild) shapeBuild;
-        TwoEndsShape line = new LineShape(lineBuild.getColor());
-        Point point1 = lineBuild.getPoint1();
-        Point point2 = lineBuild.getPoint2();
-        line.setPoint1(point1);
-        line.setPoint2(point2);
-        ouput = line;
-        break;
-      case "Oval":
-        OvalBuild ovalBuild = (OvalBuild) shapeBuild;
-        TwoEndsShape oval = new OvalShape(ovalBuild.getColor());
-        oval.setPoint1(ovalBuild.getPoint1());
-        oval.setPoint2(ovalBuild.getPoint2());
-        ouput = oval;
-        break;
-      case "Rectangle":
-        RectangleBuild rectangleBuild = (RectangleBuild) shapeBuild;
-        TwoEndsShape rectangle = new RectangleShape(rectangleBuild.getColor());
-        rectangle.setPoint1(rectangleBuild.getPoint1());
-        rectangle.setPoint2(rectangleBuild.getPoint2());
-        ouput = rectangle;
-        break;
       case "Class":
         ClassBuild classBuild = (ClassBuild) shapeBuild;
         ClassShape classShape = new ClassShape(classBuild.getColor());
@@ -175,14 +114,6 @@ public class ListShape {
         relationShip.setPoint2(rectangleBuild1.getPoint2());
         ouput = relationShip;
         break;
-      case "StrokeShape":
-        StrokeBuild strokeBuild = (StrokeBuild) shapeBuild;
-        StrokeShape strokeShape = new StrokeShape(strokeBuild.getColor());
-        strokeShape.setPoints(strokeBuild.getPoints());
-        ouput = strokeShape;
-        break;
-
-
     }
     return ouput;
   }
@@ -268,9 +199,30 @@ public class ListShape {
     if (stateRelation) {
       RelationShip relationShip1 = new RelationShip(relationShip.getColor(), shape1, shape2,
           typeRelationShip);
-
       add(relationShip1);
     }
   }
+
+  public void setStateChanges(boolean b) {
+    shapeChanges = b;
+  }
+
+  private RelationShipBuild createRelationShip(Shape shape) {
+    RelationShipBuild shapeBuild;
+    RelationShip relationShip = (RelationShip) shape;
+    ClassShape classShape1 = (ClassShape) relationShip.getClassShape1();
+    ClassShape classShape2 = (ClassShape) relationShip.getClassShape2();
+    ClassBuild classBuild1 = new ClassBuild(classShape1.getColor(), classShape1.getPoint1(),
+        classShape1.getPoint2(), classShape1.getTitleClass());
+    ClassBuild classBuild2 = new ClassBuild(classShape2.getColor(), classShape2.getPoint1(),
+        classShape2.getPoint2(), classShape2.getTitleClass());
+    shapeBuild = new RelationShipBuild(shape.getColor(), relationShip.getPoint1(),
+        relationShip.getPoint2());
+    shapeBuild.setTypeRelation(relationShip.getTypeRelation());
+    shapeBuild.setRelationPrimary(classBuild1);
+    shapeBuild.setRelationSecundary(classBuild2);
+    return shapeBuild;
+  }
+
 }
 

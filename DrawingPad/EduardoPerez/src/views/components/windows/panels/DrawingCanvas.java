@@ -81,6 +81,7 @@ public class DrawingCanvas extends JPanel {
   }
 
   public void openFile(String filename) {
+    shapes.clear();
     shapes.updateList(filename);
     repaint();
   }
@@ -133,5 +134,9 @@ public class DrawingCanvas extends JPanel {
 
   public void addRelationShape(Shape relationShip) {
     shapes.addRelationShapre(relationShip, typeRelationShip);
+  }
+
+  public void setStateChanges(boolean b) {
+    shapes.setStateChanges(b);
   }
 }

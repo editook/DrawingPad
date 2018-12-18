@@ -1,6 +1,5 @@
 package views.listeners;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import views.components.windows.frame.DrawingPad;
@@ -13,14 +12,8 @@ public class ListenerUndo implements MouseListener {
     this.drawingPad = drawingPad;
   }
 
-  public void actionPerformed(ActionEvent actionEvent) {
-    System.out.println(actionEvent.getActionCommand());
-    drawingPad.UndoChange();
-  }
-
   @Override
   public void mouseClicked(MouseEvent mouseEvent) {
-    //System.out.println(mouseEvent.getActionCommand());
     drawingPad.UndoChange();
   }
 

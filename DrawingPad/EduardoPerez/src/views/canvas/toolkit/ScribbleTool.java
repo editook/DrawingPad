@@ -1,22 +1,20 @@
 package views.canvas.toolkit;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
-import shapes.StrokeShape;
+import shapes.LineShape;
+import shapes.Shape;
 import views.components.windows.panels.DrawingCanvas;
 
 public class ScribbleTool implements Tool {
 
   private final DrawingCanvas canvas;
   private final String name;
-  private StrokeShape currentStrokeShape;
   private Color color;
-
+  private Shape shape;
   public ScribbleTool(DrawingCanvas canvas, String name) {
     this.canvas = canvas;
     this.name = name;
-    currentStrokeShape = null;
     color = canvas.getCurrentColor();
   }
 
@@ -28,28 +26,13 @@ public class ScribbleTool implements Tool {
   @Override
   public void startShape(Point point) {
     color = canvas.getCurrentColor();
-    currentStrokeShape = new StrokeShape(color);
-    currentStrokeShape.addPoint(point);
-  }
-
-  @Override
-  public void addPointToShape(Point point) {
-    if (currentStrokeShape != null) {
-      Point lastPoint = currentStrokeShape.lastAddedPoint();
-      currentStrokeShape.addPoint(point);
-      Graphics g = canvas.getGraphics();
-      g.setColor(color);
-      g.drawLine(lastPoint.x, lastPoint.y, point.x, point.y);
-    }
+    shape= new LineShape(color);
   }
 
   @Override
   public void endShape(Point point) {
-    if (currentStrokeShape != null) {
-      currentStrokeShape.addPoint(point);
-      canvas.addShape(currentStrokeShape);
-      currentStrokeShape = null;
-    }
+    shape.setPoint2(point);
+    canvas.addShape(shape);
   }
 
 }

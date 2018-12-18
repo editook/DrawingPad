@@ -21,12 +21,8 @@ public class ColorDialog extends JDialog implements ActionListener {
   private JButton moreColorButton;
   private ColorPanel colorPanel;
   private JColorChooser chooser = new JColorChooser();
-  private Color color = null;
+  private Color color;
   private Color result = null;
-
-  public ColorDialog(JFrame owner, String title) {
-    this(owner, title, Color.black);
-  }
 
   public ColorDialog(JFrame owner, String title, Color color) {
     super(owner, title, true);

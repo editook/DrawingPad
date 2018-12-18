@@ -3,9 +3,6 @@ package views.canvas.toolkit;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import shapes.LineShape;
-import shapes.OvalShape;
-import shapes.RectangleShape;
 import shapes.TwoEndsShape;
 import views.components.windows.panels.DrawingCanvas;
 
@@ -48,41 +45,9 @@ public class TwoEndsTool implements Tool {
   }
 
   @Override
-  public void addPointToShape(Point point) {
-    Graphics g = canvas.getGraphics();
-    g.setXORMode(canvas.getBackground());
-    shape.setColor(color);
-    shape.draw(g);
-    shape.setEnds(xStart, yStart, point.x, point.y);
-    shape.draw(g);
-    xEnd = point.x;
-    yEnd = point.y;
-  }
-
-  @Override
   public void endShape(Point point) {
-    shape.setEnds(xStart, yStart, point.x, point.y);
-
-    //canvas.addShape(shape);
-    TwoEndsShape newShape = null;
-    switch (name) {
-      case "Line":
-        newShape = new LineShape(color);
-        break;
-      case "Oval":
-        newShape = new OvalShape(color);
-        break;
-      case "Rectangle":
-        newShape = new RectangleShape(color);
-    }
-
-    if (newShape != null) {
-      newShape.setEnds(xStart, yStart, point.x, point.y);
-      canvas.addShape(newShape);
-    }
-    Graphics g = canvas.getGraphics();
-    g.setPaintMode();
-    canvas.repaint();
+    shape.setPoint2(point);
+    canvas.addShape(shape);
   }
 
 }

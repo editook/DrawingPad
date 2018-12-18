@@ -12,18 +12,23 @@ import shapes.Shape;
 public class RelationShip extends LineShape {
 
   private static final String RELATION_SHIP = "RelationShip";
-  private int relacion;//herencia= 1, agregación = 1 y asociación simple = 0
+  private int TypeRelation;
   private Shape classShape1, classShape2;
   private Map<Integer, Polygon> figureMap;
 
-  public RelationShip(Color color, Shape classShape1, Shape classShape2, int relacion) {
+  public RelationShip(Color color, Shape classShape1, Shape classShape2, int TypeRelation) {
     super(color);
-    setPoint1(getPointShapeLeft(classShape1));
-    setPoint2(getPointShapeRight(classShape2));
-    this.relacion = relacion;
+    setPoint1(getPointShapeLeft(classShape1, classShape2));
+    setPoint2(getPointShapeRight(classShape2, classShape1));
+    this.TypeRelation = TypeRelation;
     this.classShape1 = classShape1;
     this.classShape2 = classShape2;
-    figureMap = new HashMap<Integer, Polygon>();
+    inifigureMap();
+  }
+
+  public RelationShip(Color color, int TypeRelation) {
+    super(color);
+    this.TypeRelation = TypeRelation;
     inifigureMap();
   }
 
@@ -31,8 +36,8 @@ public class RelationShip extends LineShape {
     return classShape1;
   }
 
-  public int gettypeRelation() {
-    return relacion;
+  public int getTypeRelation() {
+    return TypeRelation;
   }
 
   public Shape getClassShape2() {
@@ -44,7 +49,39 @@ public class RelationShip extends LineShape {
     return RELATION_SHIP;
   }
 
+  private Point getPointShapeLeft(Shape shape, Shape shape2) {
+    Point point = shape.getPoint1();
+    Point point1 = shape2.getPoint1();
+    int x = 50, y;
+    if (point.y > point1.y) {
+      y = 0;
+    } else {
+      y = 70;
+    }
+    return new Point(point.x + x, point.y + y);
+  }
+
+  private Point getPointShapeRight(Shape shape, Shape shape2) {
+    Point point = shape.getPoint1();
+    Point point1 = shape2.getPoint1();
+    int x = 50, y;
+    if (point.y < point1.y) {
+      y = 70;
+    } else {
+      y = 0;
+    }
+    return new Point(point.x + x, point.y + y);
+  }
+
+  @Override
+  public void draw(Graphics g) {
+    g.setColor(getColor());
+    super.draw(g);
+
+    g.drawPolygon(figureMap.get(TypeRelation));
+  }
   private void inifigureMap() {
+    figureMap = new HashMap<>();
     Polygon polygonHerencia = new Polygon();
     Point point2 = getPoint2();
     int size = 15;
@@ -60,35 +97,10 @@ public class RelationShip extends LineShape {
     polygonAgregation.addPoint(point2.x - (size / 2), point2.y + (size / 2));
     polygonAgregation.addPoint(point2.x, point2.y);
     figureMap.put(2, polygonAgregation);
-
     Polygon polygonAsociation = new Polygon();
-
     polygonAgregation.addPoint(point2.x, point2.y);
     figureMap.put(0, polygonAsociation);
   }
-
-  private Point getPointShapeLeft(Shape shape) {
-    Point point = shape.getPoint1();
-    return new Point(point.x + 50, point.y + 50);
-  }
-
-  private Point getPointShapeRight(Shape shape) {
-    Point point = shape.getPoint2();
-    return new Point(point.x - 50, point.y - 50);
-  }
-
-  private float getAngleOfLineBetweenTwoPoints(Point point1, Point point2) {
-    float xDiff = point2.x - point1.x;
-    float yDiff = point2.y - point1.y;
-    return (float) (Math.atan2(yDiff, xDiff) * (180 / Math.PI));
-  }
-
-  @Override
-  public void draw(Graphics g) {
-    g.drawPolygon(figureMap.get(relacion));
-    super.draw(g);
-  }
-
 
 
 

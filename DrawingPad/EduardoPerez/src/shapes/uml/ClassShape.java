@@ -9,9 +9,11 @@ public class ClassShape extends RectangleShape {
 
   private static final String CLASS = "Class";
   private String titleClass;
+  private Color color;
 
   public ClassShape(Color color) {
     super(color);
+    this.color = color;
     titleClass = "Untitled";
   }
 
@@ -31,10 +33,11 @@ public class ClassShape extends RectangleShape {
 
   @Override
   public void draw(Graphics g) {
-    g.setColor(Color.CYAN);
-    super.draw(g);
     g.setColor(Color.BLACK);
     Point point1 = getPoint1();
     g.drawString(titleClass, point1.x + 10, point1.y + 12);
+    g.setColor(getColor());
+    super.draw(g);
+
   }
 }

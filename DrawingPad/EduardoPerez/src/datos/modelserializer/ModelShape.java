@@ -3,7 +3,7 @@ package datos.modelserializer;
 import datos.model.ShapeBuild;
 import java.io.Serializable;
 
-public class ModelShape implements Comparable<ModelShape>, Serializable {
+public class ModelShape implements Serializable {
 
   private ShapeBuild shapeBuild;
 
@@ -11,10 +11,6 @@ public class ModelShape implements Comparable<ModelShape>, Serializable {
     this.shapeBuild = shapeBuild;
   }
 
-  @Override
-  public int compareTo(ModelShape modelShape) {
-    return 0;
-  }
 
   public ShapeBuild getShapeBuild() {
     return shapeBuild;

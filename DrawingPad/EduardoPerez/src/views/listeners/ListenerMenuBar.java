@@ -35,7 +35,7 @@ public class ListenerMenuBar implements ActionListener {
         openFileListener();
         break;
       case StaticMenu.SAVE:
-        saveFileListener();
+        saveFile();
         break;
       case StaticMenu.SAVE_AS:
         saveAsFileListener();
@@ -49,31 +49,8 @@ public class ListenerMenuBar implements ActionListener {
       case StaticMenu.ABOUT:
         aboutListener();
         break;
-      case StaticMenu.RELATION_SHIP:
-        canvas.setChangeMouseEdition(2);
-        break;
-      case StaticMenu.NONE:
-        canvas.setChangeMouseEdition(0);
-        canvas.setCurrentColor(Color.BLACK);
-        break;
-      case StaticMenu.CLASS:
-        canvas.setChangeMouseEdition(1);
-        break;
       case StaticMenu.CLASS_NAME:
         canvas.setChangeMouseEdition(3);
-        break;
-      case StaticMenu.HERENCIA:
-        canvas.setChangeMouseEdition(2);
-        canvas.setTypeRelationShip(1);
-        break;
-      case StaticMenu.ASOCIATION:
-        canvas.setChangeMouseEdition(2);
-        canvas.setTypeRelationShip(2);
-        break;
-      case StaticMenu.RElATION_SIMPLE:
-        canvas.setChangeMouseEdition(2);
-        canvas.setTypeRelationShip(0);
-        break;
     }
 
   }
@@ -84,13 +61,13 @@ public class ListenerMenuBar implements ActionListener {
     drawingPad.setTitle("Scribble Pad [" + currentFilename + "]");
   }
 
-  /*me eh rallado aqui no me acuerdo*/
   private void saveFile() {
     if (currentFilename == null) {
       currentFilename = "Untitled";
     }
     canvas.saveFile(currentFilename);
     drawingPad.setTitle("Scribble Pad [" + currentFilename + "]");
+    canvas.setStateChanges(false);
   }
 
   private void openFileListener() {
@@ -110,13 +87,6 @@ public class ListenerMenuBar implements ActionListener {
 
   private void saveAsFileListener() {
     String filename = messageDialog.saveAsFileListener();
-    if (filename != null) {
-      saveFileAs(filename);
-    }
-  }
-
-  private void saveFileListener() {
-    String filename = messageDialog.saveFileListener();
     if (filename != null) {
       saveFileAs(filename);
     }

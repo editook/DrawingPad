@@ -32,25 +32,6 @@ public class MenuBar extends JMenuBar {
     }
   }
 
-
-  public void createMenu(String name, String subMenu1, String subMenu2, String subMenu3) {
-    JMenu menu2 = getMenu(StaticMenu.NEW_CLASS);
-    JMenu menu = new JMenu(name);
-    JMenuItem menuItem1 = new JMenuItem(subMenu1);
-    menuItem1.setActionCommand(subMenu1);
-    menuItem1.addActionListener(listenerMenu);
-    JMenuItem menuItem2 = new JMenuItem(subMenu2);
-    menuItem2.setActionCommand(subMenu2);
-    menuItem2.addActionListener(listenerMenu);
-    JMenuItem menuItem3 = new JMenuItem(subMenu3);
-    menuItem3.setActionCommand(subMenu3);
-    menuItem3.addActionListener(listenerMenu);
-    menu.add(menuItem1);
-    menu.add(menuItem2);
-    menu.add(menuItem3);
-    menu2.add(menu);
-  }
-
   private JMenu getMenu(String nameMenu) {
     JMenu menu;
     for (int i = 0; i < index; i++) {
